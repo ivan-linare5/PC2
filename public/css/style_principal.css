@@ -1,0 +1,105 @@
+/*ESTILOS DEL ENCABEZADO*/
+#blue {
+    background-color: #275591; /* Color 183152 */
+    color: white; /* Color del texto blanco para contraste */
+    padding: 9.6px; /* Ajusta el espaciado interno si es necesario */
+    display: flex;
+    align-items: center;
+}
+
+#red {
+    background-color: #840010; /* Color 840010 */
+    color: white; /* Color del texto blanco para contraste */
+    padding: 33.5px; /* Ajusta el espaciado interno si es necesario */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    max-width: 250px; /* Ajusta el tamaño máximo de las imágenes */
+    height: auto; /* Mantiene la proporción de las imágenes */
+}
+
+.title {
+    color: white; /* Color del texto blanco para contraste */
+    font-size: 18pt; /* Ajusta el tamaño del texto */
+    text-align: center; /* Asegura que el texto esté centrado */
+    font-family: Arial, Helvetica, sans-serif; /* Ajusta la fuente del título */
+}
+
+/*ESTILOS DE LA TABLA*/
+.tabla1 {
+    border: 2px black solid;
+    width: 100%; /* Ajusta el ancho de la tabla al 100% */
+    border-collapse: collapse; /* Opcional: Elimina los espacios entre las celdas */
+}
+
+.col1, .col2 {
+    padding: 8px; /* Añade espacio interior a las celdas si es necesario */
+    text-align: left; /* Ajusta la alineación del texto dentro de las celdas si es necesario */
+}
+
+.col1 {
+    width: 20%; /* ancho */
+    background-color: #000166; /* Color de fondo azul oscuro */
+    color: white; /* Color del texto blanco */
+    font-weight: bold; /* Texto en negritas */
+    font-family: 'Arial', sans-serif; /* Tipo de letra */
+    text-align: right;/*Justificar el texto a la derecha*/
+}
+
+.col2 {
+    width: 80%; /* ancho */
+    background-color: #C7D8F0; /* Color de fondo azul claro */
+    color: #000166; /* Color del texto azul oscuro */
+    font-family: 'Arial', sans-serif; /* Tipo de letra */
+}
+
+/* ESTILO DE LA BARRA DE NAVEGACION */
+.navbar {
+    background-color: #E6E7E7; /* Color de fondo claro para la barra de navegación */
+    border-bottom: 1px solid #e3e3e3; /* Línea sutil en la parte inferior */
+    padding: 0.5rem 1rem; /* Espaciado interno */
+}
+
+.navbar-nav .nav-item {
+    margin-right: 2rem; /* Espaciado entre los elementos del menú */
+}
+
+.nav-link {
+    color: #343a40; /* Color del texto del enlace */
+    font-weight: 500; /* Peso de la fuente para el texto */
+    transition: color 0.3s; /* Transición suave para el color */
+}
+
+.nav-link:hover {
+    color: #000166; /* Color del texto azul oscuro */
+    ; /* Color del texto al pasar el cursor */
+}
+
+.nav-link.active {
+    color: #000166; /* Color del texto para el enlace activo */
+    font-weight: 600; /* Peso de la fuente para el enlace activo */
+}
+
+.dropdown-menu {
+    background-color: #ffffff; /* Fondo blanco para el menú desplegable */
+    border: 1px solid #e3e3e3; /* Borde sutil para el menú desplegable */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1; /* Fondo claro al pasar el cursor */
+    color: blue; /* Color del texto al pasar el cursor */
+}
+
+.btn-outline-danger {
+    color: #dc3545; /* Color del texto del botón */
+    border-color: #dc3545; /* Color del borde del botón */
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545; /* Color de fondo al pasar el cursor */
+    color: #ffffff; /* Color del texto al pasar el cursor */
+}
