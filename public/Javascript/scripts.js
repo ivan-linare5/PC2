@@ -1,4 +1,4 @@
-// script.js
+// Colocar la fecha en el lugar correspondiente
 document.addEventListener('DOMContentLoaded', () => {
     // Obtener la fecha actual
     const today = new Date();
@@ -21,5 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('date').textContent = uppercasedDate;
 });
 
-
-
+//funcion para cargar dinamicamente el catalog de profesores
+function cargarContenido(ruta) {
+    fetch(ruta)
+        .then(response => response.text())
+        .then(data => {
+            document.querySelector('.content').innerHTML = data; // Actualiza el contenedor con el contenido dinámico
+        })
+        .catch(error => console.error('Error al cargar el contenido:', error));
+}

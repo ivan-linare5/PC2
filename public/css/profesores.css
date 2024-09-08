@@ -1,0 +1,45 @@
+/* Estilo para el contenedor */
+
+.container{
+    padding: 20px; /* Espacio interno */
+    background-color: #fff; /* Fondo blanco */
+    box-shadow: none; /* Elimina cualquier sombra de Bootstrap */
+}
+
+/* Estilo para el contenedor */
+#caja {
+    border: 2px solid #000166; /* Borde color marrón claro */
+    border-radius: 10px; /* Bordes más redondeados */
+    padding: 15px; /* Espacio interno aumentado */
+    background-color: #C7D8F0; /* Fondo color beige claro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+/* Estilo para los botones */
+.btn-primary {
+    background-color: #E6E7E7; /* Gris marrón claro para el fondo */
+    border-color: #E6E7E7; /* Gris marrón claro para el borde */
+    color: #000000; /* Color del texto blanco */
+    font-family: Arial, sans-serif; /* Fuente Arial */
+    font-weight: bold; /* Texto en negritas */
+    border-radius: 5px; /* Bordes redondeados para los botones */
+}
+
+.btn-primary:hover {
+    background-color: #a9afaf; /* Gris marrón oscuro para hover */
+    border-color: #a9afaf; /* Gris marrón oscuro para hover */
+}
+
+/* Estilo para los inputs */
+.form-control {
+    width: calc(100% - 30px); /* Acortar un poco el ancho */
+    border-radius: 5px; /* Bordes redondeados para los inputs */
+    background-color: white; /* Fondo color crema claro */
+    border: 1px solid black; /* Borde color marrón claro */
+}
+
+/* Estilo para el formulario */
+form {
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 15px; /* Espacio interno */
+}

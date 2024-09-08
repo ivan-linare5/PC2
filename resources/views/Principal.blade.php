@@ -59,7 +59,7 @@
                         Catálogos
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="catalogDropdown">
-                        <li><a class="dropdown-item" href="#">Profesores</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="cargarContenido('/profesores')">Profesores</a></li>
                         <li><a class="dropdown-item" href="#">Alumnos</a></li>
                         <li><a class="dropdown-item" href="#">Materias</a></li>
                         <li><a class="dropdown-item" href="#">Salones</a></li>
@@ -82,6 +82,12 @@
             </div>
         </div>
     </nav>
+
+    <!-- CONTENIDO DINÁMICO -->
+    <div class="container content mt-4">
+        @yield('contenido')
+    </div>
+
 
 </body>
 </html>

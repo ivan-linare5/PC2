@@ -1,6 +1,6 @@
 /*ESTILOS DEL ENCABEZADO*/
 #blue {
-    background-color: #275591; /* Color 183152 */
+    background-color: #275591; /* Color del fondo */
     color: white; /* Color del texto blanco para contraste */
     padding: 9.6px; /* Ajusta el espaciado interno si es necesario */
     display: flex;
