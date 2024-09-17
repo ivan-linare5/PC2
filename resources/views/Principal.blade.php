@@ -69,7 +69,7 @@
                         <li><a class="dropdown-item" href="#" onclick="cargarContenido('/alumnos')">Alumnos</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarContenido('/materias')">Materias</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarContenido('/salones')">Salones</a></li>
-                        <li><a class="dropdown-item" href="#">Grupos</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="cargarContenido('/grupos')">Grupos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
