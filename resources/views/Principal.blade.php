@@ -66,7 +66,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="catalogDropdown">
                         <li><a class="dropdown-item" href="#" onclick="cargarContenido('/profesores')">Profesores</a></li>
-                        <li><a class="dropdown-item" href="#">Alumnos</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="cargarContenido('/alumnos')">Alumnos</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarContenido('/materias')">Materias</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarContenido('/salones')">Salones</a></li>
                         <li><a class="dropdown-item" href="#">Grupos</a></li>
