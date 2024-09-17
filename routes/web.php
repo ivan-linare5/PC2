@@ -21,3 +21,13 @@ Route::get('/materias', function () {
 Route::get('/salones', function () {
     return view('partials.salones'); // Vista parcial para salones
 });
+
+// Ruta para alumnos
+Route::get('/alumnos', function () {
+    return view('partials.alumnos'); // Vista parcial para alumnos
+});
+
+// Ruta para grupos
+Route::get('/grupos', function () {
+    return view('partials.grupos'); // Vista parcial para grupos
+});
