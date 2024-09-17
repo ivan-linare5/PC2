@@ -73,7 +73,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Listas</a>
+                    <a class="nav-link" href="#" onclick="cargarContenido('/listaGrupos')">Listas</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Estadisticas</a>

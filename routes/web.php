@@ -31,3 +31,9 @@ Route::get('/alumnos', function () {
 Route::get('/grupos', function () {
     return view('partials.grupos'); // Vista parcial para grupos
 });
+
+// Ruta para lista de grupos Secretaria
+Route::get('/listaGrupos', function () {
+    return view('listaGrupos'); // Vista parcial para lista de grupos
+});
+
