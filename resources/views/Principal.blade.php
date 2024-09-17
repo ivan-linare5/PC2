@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Administrativo</title>
+    <!-- CDN iconos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!--CND de jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!--BOOTSTRAP-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Archivo CSS -->   
     <link rel="stylesheet" href="{{ asset('css/style_principal.css') }}">  
+    <link rel="stylesheet" href="{{ asset('css/profesores.css') }}"> 
     <!-- Enlace al archivo JavaScript -->
     <script src="{{ asset('Javascript/scripts.js') }}"></script>
+    <script src="{{ asset('Javascript/profesores.js') }}"></script>
 </head>
 
 <body>
@@ -61,8 +67,8 @@
                     <ul class="dropdown-menu" aria-labelledby="catalogDropdown">
                         <li><a class="dropdown-item" href="#" onclick="cargarContenido('/profesores')">Profesores</a></li>
                         <li><a class="dropdown-item" href="#">Alumnos</a></li>
-                        <li><a class="dropdown-item" href="#">Materias</a></li>
-                        <li><a class="dropdown-item" href="#">Salones</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="cargarContenido('/materias')">Materias</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="cargarContenido('/salones')">Salones</a></li>
                         <li><a class="dropdown-item" href="#">Grupos</a></li>
                     </ul>
                 </li>

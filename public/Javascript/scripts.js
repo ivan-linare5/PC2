@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('date').textContent = uppercasedDate;
 });
 
-//funcion para cargar dinamicamente el catalog de profesores
+//funcion para cargar dinamicamente el contenido de catalogos
 function cargarContenido(ruta) {
     fetch(ruta)
         .then(response => response.text())
@@ -30,3 +30,4 @@ function cargarContenido(ruta) {
         })
         .catch(error => console.error('Error al cargar el contenido:', error));
 }
+
