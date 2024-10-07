@@ -13,7 +13,7 @@
    
 <body>
     <div class="container mt-2" id="caja">
-        <h2 class="text-center">CATÁLOGO DE ALUMNOSS</h2><br><br>
+        <h2 class="text-center">CATÁLOGO DE ALUMNOS</h2><br><br>
         <div class="d-flex gap-4 mb-3">
             <button type="button" class="btn btn-primary" onclick="Buscar()">Buscar</button>
             <button type="button" class="btn btn-primary">Agregar Nuevo</button>
