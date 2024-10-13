@@ -1,41 +1,35 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfesorController;
+use App\Http\Controllers\MateriaController;
+use App\Http\Controllers\SalonController;
+use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\GrupoController;
+use App\Http\Controllers\ListaController;
 
 Route::get('/', function () {
-    return view('Principal');
+    return view('layouts.Principal');
 });
 
 
-// Ruta para Profesores
-Route::get('/profesores', function () {
-    return view('partials.profesores'); // Vista parcial para Profesores
-});
+//PROFESORES
+Route::get('/profesores', [ProfesorController::class, 'index'])->name('profesores.index');
+Route::post('/profesor/guardar', [ProfesorController::class, 'guardar'])->name('profesor.guardar');
 
-// Ruta para materias
-Route::get('/materias', function () {
-    return view('partials.materias'); // Vista parcial para materias
-});
+//MATERIAS
+Route::get('/materias', [MateriaController::class, 'index'])->name('materias.index');
 
-// Ruta para salones
-Route::get('/salones', function () {
-    return view('partials.salones'); // Vista parcial para salones
-});
+//SALONES
+Route::get('/salones', [SalonController::class, 'index'])->name('salones.index');
 
-// Ruta para alumnos
-Route::get('/alumnos', function () {
-    return view('partials.alumnos'); // Vista parcial para alumnos
-});
+//ALUMNOS
+Route::get('/alumnos', [AlumnoController::class, 'index'])->name('alumnos.index');
 
-// Ruta para grupos
-Route::get('/grupos', function () {
-    return view('partials.grupos'); // Vista parcial para grupos
-});
+//GRUPOS
+Route::get('/grupos', [GrupoController::class, 'index'])->name('grupos.index');
 
-// Ruta para lista de grupos Secretaria
-Route::get('/listaGrupos', function () {
-    return view('listaGrupos'); // Vista parcial para lista de grupos
-});
-
+//LISTAS
+Route::get('/listas', [ListaController::class, 'index'])->name('listas.index');
 
 

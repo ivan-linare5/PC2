@@ -265,3 +265,27 @@ form {
     color: #ffffff; /* Texto blanco */
     opacity: 1; /* Asegura que el botón sea opaco */
 }
+
+.btn-close {
+    background: transparent; /* Fondo transparente para no interferir con el diseño */
+    border: none; /* Sin bordes */
+    position: relative; /* Para permitir el posicionamiento del icono */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+.btn-close i {
+    font-size: 1.5rem; /* Tamaño del ícono */
+    color: #dc3545; /* Color rojo para el ícono */
+    transition: color 0.3s ease; /* Transición suave para el color */
+}
+
+.btn-close:hover i {
+    color: #a71d2a; /* Color más oscuro al pasar el ratón */
+}
+
+/* Opcional: Estilo de la alerta para mayor compatibilidad */
+.alert {
+    display: flex; /* Para alinear el contenido */
+    justify-content: space-between; /* Espaciado entre el contenido y el botón de cierre */
+    align-items: center; /* Alineación vertical centrada */
+}

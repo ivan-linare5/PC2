@@ -9,10 +9,16 @@ class TelefonoEmergencia extends Model
 {
     use HasFactory;
 
+    // Especifica el nombre de la tabla
+    protected $table = 'telefonos_emergencia';
+
+    // Desactivar el uso de timestamps
+    public $timestamps = false;
+
     protected $fillable = [
-        'profesor_id',
-        'telefono',
+        'RPE',        
         'descripcion',
+        'numero',
     ];
 
     public function profesor()

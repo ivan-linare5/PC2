@@ -12,6 +12,9 @@ class Profesor extends Model
     // Especifica el nombre de la tabla
     protected $table = 'profesor';
 
+    // Desactivar el uso de timestamps
+    public $timestamps = false;
+
     // Define los atributos que se pueden llenar
     protected $fillable = [
         'RPE_Profesor',
@@ -20,6 +23,7 @@ class Profesor extends Model
         'segundo_apellido',
         'correo_institucional',
         'telefono_emergencia',
-        'grado_maximo'
+        'grado_maximo',
+        'Activo'
     ];
 }
