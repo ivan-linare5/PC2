@@ -21,25 +21,24 @@
         </div>
     @endif
 
-    <div class="d-flex gap-4 mb-3">
-        <button type="button" class="btn btn-primary" onclick="Buscar()" id="busca" >Buscar</button>
+
+    <form id="datos" action="{{ route('profesor.buscar') }}" method="GET">
+    @csrf
+    @method('GET')
+        <div class="mb-4">
+            <input type="number" class="form-control" name="rpe" id="input1" placeholder="RPE">
+        </div>
+        <div class="mb-4">
+            <input type="text" class="form-control" name="nombre" id="input2" placeholder="NOMBRE">
+        </div>
+        <div class="mb-4">
+            <input type="text" class="form-control" name="apellido_paterno" id="input3" placeholder="APELLIDO PATERNO">
+        </div>
+        <div class="mb-4">
+            <input type="text" class="form-control" name="apellido_materno" id="input4" placeholder="APELLIDO MATERNO">
+        </div>
+        <button type="submit" class="btn btn-primary" id="busca" disabled>Buscar</button>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">Agregar Nuevo</button>
-    </div>
-
-
-    <form id="datos">
-        <div class="mb-4">
-            <input type="text" class="form-control" id="input1" placeholder="RPE">
-        </div>
-        <div class="mb-4">
-            <input type="text" class="form-control" id="input2" placeholder="NOMBRE">
-        </div>
-        <div class="mb-4">
-            <input type="text" class="form-control" id="input3" placeholder="APELLIDO PATERNO">
-        </div>
-        <div class="mb-4">
-            <input type="text" class="form-control" id="input4" placeholder="APELLIDO MATERNO">
-        </div>
     </form>
 
     <!-- Modal -->
@@ -102,4 +101,46 @@
     </div>
 
 </div>
+
+<!-- JavaScript para habilitar/deshabilitar inputs y botón Buscar -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const buscarButton = document.getElementById("busca"); // Botón "Buscar"
+    const rpeInput = document.getElementById("input1"); // Input de RPE
+    const otherInputs = [document.getElementById("input2"), document.getElementById("input3"), document.getElementById("input4")]; // Otros inputs
+
+    // Función para comprobar si algún campo del formulario tiene contenido
+    function checkInputs() {
+        let isAnyInputFilled = false;
+
+        if (rpeInput.value.trim() !== "") {
+            isAnyInputFilled = true;
+            otherInputs.forEach(input => input.disabled = true); // Deshabilitar otros inputs si RPE tiene contenido
+        } else {
+            otherInputs.forEach(input => input.disabled = false); // Habilitar otros inputs si RPE está vacío
+            isAnyInputFilled = otherInputs.some(input => input.value.trim() !== ""); // Verificar si otros inputs tienen contenido
+        }
+
+        buscarButton.disabled = !isAnyInputFilled; // Habilitar/deshabilitar botón "Buscar"
+    }
+
+    // Deshabilitar RPE si se escribe en otros inputs
+    otherInputs.forEach(input => {
+        input.addEventListener("input", function () {
+            if (input.value.trim() !== "") {
+                rpeInput.disabled = true; // Deshabilitar RPE
+            } else if (otherInputs.every(input => input.value.trim() === "")) {
+                rpeInput.disabled = false; // Habilitar RPE si los otros inputs están vacíos
+            }
+            checkInputs();
+        });
+    });
+
+    // Escuchar el input de RPE
+    rpeInput.addEventListener("input", checkInputs);
+
+    // Inicialmente, deshabilitar el botón "Buscar"
+    buscarButton.disabled = true;
+});
+</script>
 @endsection|

@@ -26,4 +26,10 @@ class Profesor extends Model
         'grado_maximo',
         'Activo'
     ];
+
+    public function telefonosEmergencia()
+    {
+        // Relación uno a muchos (un profesor puede tener varios teléfonos de emergencia)
+        return $this->hasMany(TelefonoEmergencia::class, 'RPE', 'RPE_Profesor');
+    }
 }

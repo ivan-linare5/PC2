@@ -16,6 +16,7 @@ Route::get('/', function () {
 //PROFESORES
 Route::get('/profesores', [ProfesorController::class, 'index'])->name('profesores.index');
 Route::post('/profesor/guardar', [ProfesorController::class, 'guardar'])->name('profesor.guardar');
+Route::get('/profesor/buscar', [ProfesorController::class, 'buscar'])->name('profesor.buscar');
 
 //MATERIAS
 Route::get('/materias', [MateriaController::class, 'index'])->name('materias.index');

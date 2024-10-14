@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Insertar la fecha en la celda con el ID "date"
     document.getElementById('date').textContent = uppercasedDate;
+
 });
 
 //PROFESORES**************************************************************************************

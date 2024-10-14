@@ -59,4 +59,32 @@ class ProfesorController extends Controller
             return redirect()->route('profesores.index');
         }
     }
+
+    public function buscar(Request $request)
+    {
+        // Validar que el RPE esté presente y sea numérico
+        $request->validate([
+            'rpe' => 'required|numeric', // Hacer obligatorio y numérico
+        ]);
+
+        // Realizar la búsqueda en la base de datos
+        $profesor = Profesor::where('RPE_Profesor', $request->rpe)->first(); // Obtener solo el primer resultado
+
+        // Verificar si se encontró el profesor
+        if ($profesor) {
+             // Obtener todos los teléfonos de emergencia asociados al profesor
+             $telefonos = $profesor->telefonosEmergencia()->get(); 
+        
+             // Si no se encontraron teléfonos, inicializar como un array vacío
+             if (!$telefonos) {
+                 $telefonos = []; // O también podrías usar collect() para convertirlo en una colección
+             }
+            // Si se encuentra, retorna la vista con los datos del profesor
+            return view('profesor_search_and_edit', compact('profesor', 'telefonos')); 
+        } else {
+            // Si no se encuentra, redirigir con un mensaje de error
+            return redirect()->back()->with('error', 'No se encontró un profesor con el RPE proporcionado.');
+        }
+    }
+
 }

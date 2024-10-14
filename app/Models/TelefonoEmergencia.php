@@ -23,6 +23,7 @@ class TelefonoEmergencia extends Model
 
     public function profesor()
     {
-        return $this->belongsTo(Profesor::class);
+        // Especifica la relación con la clave foránea y la clave primaria
+        return $this->belongsTo(Profesor::class, 'RPE', 'RPE_Profesor');
     }
 }
