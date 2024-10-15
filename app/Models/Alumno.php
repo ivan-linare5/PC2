@@ -9,13 +9,13 @@ class Alumno extends Model
 {
     use HasFactory;
 
-    // Especifica el nombre de la tabla
-    protected $table = 'alumnos';
+    // Specify the name of the table
+    protected $table = 'alumno';
 
-    // Desactivar el uso de timestamps
+    // Disable timestamps
     public $timestamps = false;
 
-    // Define los atributos que se pueden llenar
+    // Define the fillable attributes
     protected $fillable = [
         'no_registro',
         'clave_unica',
@@ -26,12 +26,5 @@ class Alumno extends Model
         'clave_carrera',
         'telefono',
         'fecha_ingreso',
-        'Activo'
     ];
-
-    // Relación con otros modelos si es necesario
-    // public function carrera()
-    // {
-    //     return $this->belongsTo(Carrera::class, 'clave_carrera', 'clave');
-    // }
 }
