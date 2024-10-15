@@ -26,6 +26,9 @@ Route::get('/salones', [SalonController::class, 'index'])->name('salones.index')
 
 //ALUMNOS
 Route::get('/alumnos', [AlumnoController::class, 'index'])->name('alumnos.index');
+Route::get('/alumnos/buscar', [AlumnoController::class, 'buscar'])->name('alumnos.buscar');
+Route::post('/alumnos/guardar', [AlumnoController::class, 'guardar'])->name('alumnos.guardar');
+
 
 //GRUPOS
 Route::get('/grupos', [GrupoController::class, 'index'])->name('grupos.index');
