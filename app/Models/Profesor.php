@@ -18,11 +18,12 @@ class Profesor extends Model
     // Define los atributos que se pueden llenar
     protected $fillable = [
         'RPE_Profesor',
+        'rpe_temporal',
         'nombre_profesor',
         'primer_apellido',
         'segundo_apellido',
         'correo_institucional',
-        'telefono_emergencia',
+        'telefono_personal',
         'grado_maximo',
         'Activo'
     ];

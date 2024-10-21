@@ -57,6 +57,11 @@
                         <label for="rpe" class="form-label">RPE <span class="text-danger">*</span></label>
                         <input type="number" name="rpe" class="form-control" id="rpe" placeholder="RPE" required>
                     </div>
+                    <div class="mb-3 form-check">
+                        <input type="hidden" name="rpe_temporal" value="0"> <!-- Valor enviado cuando no está seleccionado -->
+                        <input type="checkbox" class="form-check-input" id="rpe_temporal" name="rpe_temporal" value="1">
+                        <label class="form-check-label" for="rpe_temporal">RPE Temporal</label>
+                    </div>
                     <div class="mb-3">
                         <label for="nombre_profesor" class="form-label">Nombre <span class="text-danger">*</span></label>
                         <input type="text" name="nombre_profesor" class="form-control" id="nombre_profesor" placeholder="Nombre" required>
@@ -76,6 +81,10 @@
                     <div class="mb-3">
                         <label for="grado_maximo" class="form-label">Grado Máximo <span class="text-danger">*</span></label>
                         <input type="text" name="grado_maximo" class="form-control" id="grado_maximo" placeholder="Grado Máximo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono_personal" class="form-label">Telefono Personal <span class="text-danger">*</span></label>
+                        <input type="text" name="telefono_personal" class="form-control" id="telefono_personal" placeholder="telefono_personal" minlength="10" maxlength="10" pattern="\d{10}" title="Debe tener exactamente 10 dígitos" required>
                     </div>
 
                     <!-- Teléfonos de Emergencia -->
