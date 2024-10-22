@@ -18,6 +18,8 @@ Route::get('/profesores', [ProfesorController::class, 'index'])->name('profesore
 Route::post('/profesor/guardar', [ProfesorController::class, 'guardar'])->name('profesor.guardar');
 Route::get('/profesor/buscar', [ProfesorController::class, 'buscar'])->name('profesor.buscar');
 Route::put('/profesor/update', [ProfesorController::class, 'update'])->name('profesor.update');
+Route::get('/profesor/search/{rpe}', [ProfesorController::class, 'search'])->name('profesor.search');
+
 
 //MATERIAS
 Route::get('/materias', [MateriaController::class, 'index'])->name('materias.index');

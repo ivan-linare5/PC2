@@ -289,3 +289,52 @@ form {
     justify-content: space-between; /* Espaciado entre el contenido y el botón de cierre */
     align-items: center; /* Alineación vertical centrada */
 }
+
+/*ESTILOS DE LA TABLA*/
+/* ESTILOS DEL ENCABEZADO */
+.header {
+    background-color: #275591; /* Color del fondo */
+    color: white; /* Color del texto blanco para contraste */
+    padding: 9.6px; /* Ajusta el espaciado interno si es necesario */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Asegura que los elementos se distribuyan */
+}
+
+.title {
+    font-size: 18pt; /* Ajusta el tamaño del texto */
+    text-align: center; /* Asegura que el texto esté centrado */
+    font-family: Arial, Helvetica, sans-serif; /* Ajusta la fuente del título */
+}
+
+/* ESTILOS DE LA TABLA */
+.table {
+    width: 100%; /* Ajusta el ancho de la tabla al 100% */
+    border-collapse: collapse; /* Elimina los espacios entre las celdas */
+}
+
+.table th, .table td {
+    padding: 8px; /* Añade espacio interior a las celdas */
+    text-align: left; /* Ajusta la alineación del texto dentro de las celdas */
+}
+
+.table th {
+    background-color: #000166; /* Color de fondo azul oscuro */
+    color: white; /* Color del texto blanco */
+    font-weight: bold; /* Texto en negritas */
+    font-family: 'Arial', sans-serif; /* Tipo de letra */
+}
+
+.table td {
+    background-color: #C7D8F0; /* Color de fondo azul claro */
+    color: #000166; /* Color del texto azul oscuro */
+    font-family: 'Arial', sans-serif; /* Tipo de letra */
+}
+
+/* ESTILOS DE LOS CONTENEDORES */
+.container {
+    padding: 20px;
+    background-color: #f8f9fa; /* Color de fondo sutil */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 10px; /* Bordes redondeados para el contenedor */
+}

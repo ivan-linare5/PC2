@@ -64,13 +64,46 @@ class ProfesorController extends Controller
 
     public function buscar(Request $request)
     {
-        // Validar que el RPE esté presente y sea numérico
-        $request->validate([
-            'rpe' => 'required|numeric', // Hacer obligatorio y numérico
-        ]);
+        // Comprobar si al menos uno de los campos tiene datos
+        if ($request->filled('nombre') || $request->filled('apellido_paterno') || $request->filled('apellido_materno')) {
+            // Construir la consulta
+            $query = Profesor::query();
+    
+            // Agregar condiciones a la consulta según los campos llenos
+            if ($request->filled('nombre')) {
+                $query->where('nombre_profesor', 'like', '%' . $request->nombre . '%');
+            }
+            if ($request->filled('apellido_paterno')) {
+                $query->where('primer_apellido', 'like', '%' . $request->apellido_paterno . '%');
+            }
+            if ($request->filled('apellido_materno')) {
+                $query->where('segundo_apellido', 'like', '%' . $request->apellido_materno . '%');
+            }
+    
+            // Ejecutar la consulta y obtener los resultados
+            $profesores = $query->get();
+    
+            // Verificar si se encontraron profesores
+            if ($profesores->isNotEmpty()) {
+                // Retornar una vista con todos los resultados encontrados
+                return view('profesores_Encontrados', compact('profesores'));
+            } else {
+                // Si no se encuentran resultados, redirigir con un mensaje
+                return redirect()->back()->with('error', 'No se encontraron profesores con los datos proporcionados.');
+            }
+        }
+        else
+        {
+            return $this->search($request->rpe);
+        }
+    }
+
+    public function search($rpe)
+    {
+        
 
         // Realizar la búsqueda en la base de datos
-        $profesor = Profesor::where('RPE_Profesor', $request->rpe)->first(); // Obtener solo el primer resultado
+        $profesor = Profesor::where('RPE_Profesor', $rpe)->first(); // Obtener solo el primer resultado
 
         // Verificar si se encontró el profesor
         if ($profesor) {
@@ -147,5 +180,7 @@ class ProfesorController extends Controller
             return redirect()->back();
         }
     }
+
+    
 
 }
