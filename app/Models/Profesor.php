@@ -15,10 +15,16 @@ class Profesor extends Model
     // Desactivar el uso de timestamps
     public $timestamps = false;
 
+    // Especificar la clave primaria personalizada
+    protected $primaryKey = 'RPE_Profesor';
+
+     // Si tu clave primaria no es autoincrementable, desactiva el auto incremento
+     public $incrementing = false;
+     
+
     // Define los atributos que se pueden llenar
     protected $fillable = [
         'RPE_Profesor',
-        'rpe_temporal',
         'nombre_profesor',
         'primer_apellido',
         'segundo_apellido',

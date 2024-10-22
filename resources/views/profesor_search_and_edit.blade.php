@@ -20,13 +20,13 @@
     @endif
 
     
-    <form id="datos" action="{{ route('profesor.update', $profesor->id) }}" method="POST">
+    <form id="datos" action="{{ route('profesor.update') }}" method="POST">
     @csrf
     @method('PUT') 
     
     <div class="mb-3">
         <label for="rpe" class="form-label">RPE <span class="text-danger">*</span></label>
-        <input type="text" name="rpe" class="form-control" id="rpe" value="{{ $profesor->rpe_temporal == 1 ? 'T-' . $profesor->RPE_Profesor : $profesor->RPE_Profesor }}" required disabled>
+        <input type="text" name="rpe" class="form-control" id="rpe" value="{{ $profesor->RPE_Profesor}}" required readonly>
     </div>
 
     <div class="mb-3">
@@ -77,9 +77,14 @@
         @endforeach
     </div>
 
+    <button class="btn btn-outline-secondary btn-add-more" type="button" id="addTelefonos" onclick="agregarTelefono()" style="display:none;">
+        <i class="bi bi-plus"></i>
+    </button><br><br>
+
     <div class="mb-3">
+        <input type="hidden" name="activo" value="0"> <!-- Valor por defecto si el checkbox no está marcado -->
         <div class="form-check">
-            <input type="checkbox" name="activo" class="form-check-input" id="activo" value="1" {{ $profesor->Activo == 1 ? 'checked' : '' }} required disabled>
+            <input type="checkbox" name="activo" class="form-check-input" id="activo" value="1" {{ $profesor->Activo == 1 ? 'checked' : '' }} required>
             <label for="activo" class="form-label">Activo <span class="text-danger">*</span></label>
         </div>
     </div>
@@ -128,6 +133,9 @@
 
         // Mostrar el botón Guardar
         document.getElementById('busca').style.display = 'inline-block';
+        
+        // Mostrar el botón de agregar numeros de telefonos
+        document.getElementById('addTelefonos').style.display = 'inline-block';
         
     }
 

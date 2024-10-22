@@ -57,11 +57,6 @@
                         <label for="rpe" class="form-label">RPE <span class="text-danger">*</span></label>
                         <input type="number" name="rpe" class="form-control" id="rpe" placeholder="RPE" required>
                     </div>
-                    <div class="mb-3 form-check">
-                        <input type="hidden" name="rpe_temporal" value="0"> <!-- Valor enviado cuando no está seleccionado -->
-                        <input type="checkbox" class="form-check-input" id="rpe_temporal" name="rpe_temporal" value="1">
-                        <label class="form-check-label" for="rpe_temporal">RPE Temporal</label>
-                    </div>
                     <div class="mb-3">
                         <label for="nombre_profesor" class="form-label">Nombre <span class="text-danger">*</span></label>
                         <input type="text" name="nombre_profesor" class="form-control" id="nombre_profesor" placeholder="Nombre" required>

@@ -12,6 +12,9 @@ class TelefonoEmergencia extends Model
     // Especifica el nombre de la tabla
     protected $table = 'telefonos_emergencia';
 
+    // Especificar la clave primaria personalizada
+    protected $primaryKey = 'id_tel';
+
     // Desactivar el uso de timestamps
     public $timestamps = false;
 

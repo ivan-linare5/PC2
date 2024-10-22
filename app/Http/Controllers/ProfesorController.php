@@ -18,8 +18,7 @@ class ProfesorController extends Controller
     {
         // Validar los datos recibidos
         $request->validate([
-            'rpe' => 'required|integer',
-            'rpe_temporal' => 'nullable|boolean',            
+            'rpe' => 'required|integer',           
             'nombre_profesor' => 'required|string|max:50',
             'primer_apellido' => 'required|string|max:50',
             'segundo_apellido' => 'nullable|string|max:50',
@@ -34,7 +33,6 @@ class ProfesorController extends Controller
             // Guardar los datos del profesor
             $profesor = Profesor::create([
                 'RPE_Profesor' => $request->rpe,
-                'rpe_temporal' => $request->rpe_temporal ? 1 : 0,
                 'nombre_profesor' => $request->nombre_profesor,
                 'primer_apellido' => $request->primer_apellido,
                 'segundo_apellido' => $request->segundo_apellido,
@@ -93,33 +91,25 @@ class ProfesorController extends Controller
 
     public function update(Request $request)
     {
+        
         // Validar los datos recibidos
-        $request->validate([
-            'rpe' => 'required|integer',
+        $request->validate([          
             'nombre_profesor' => 'required|string|max:50',
             'primer_apellido' => 'required|string|max:50',
             'segundo_apellido' => 'nullable|string|max:50',
             'correo_institucional' => 'required|email|max:50',
             'grado_maximo' => 'required|string|max:25',
             'telefono_personal' => 'required|digits:10',
-            'activo' => 'required|boolean', // Validar el campo 'activo'
-            'telefonos.*.numero' => 'required|digits:10',
+            'telefonos.*.numero' => 'required|digits:10', // Validar que cada teléfono tenga 10 dígitos
             'telefonos.*.descripcion' => 'required|string|max:150'
         ]);
-
+        
         try {
             // Buscar al profesor por su RPE
-            $profesor = Profesor::where('RPE_Profesor', $request->rpe)->first();
-
-            // Verificar si el profesor existe
-            if (!$profesor) {
-                return redirect()->back()->with('error', 'Profesor no encontrado.');
-            }
-
+            $profesor = Profesor::where('RPE_Profesor', $request->rpe)->firstOrFail();
+            //dd($profesor);
             // Actualizar los datos del profesor
             $profesor->update([
-                'RPE_Profesor' => $request->rpe,
-                'rpe_temporal' => $profesor->rpe_temporal, // Mantener el valor actual
                 'nombre_profesor' => $request->nombre_profesor,
                 'primer_apellido' => $request->primer_apellido,
                 'segundo_apellido' => $request->segundo_apellido,
@@ -130,22 +120,32 @@ class ProfesorController extends Controller
             ]);
 
             // Actualizar los teléfonos de emergencia
-            $profesor->telefonosEmergencia()->delete();
-
-            foreach ($request->telefonos as $telefono) {
-                TelefonoEmergencia::create([
-                    'RPE' => $profesor->RPE_Profesor,
-                    'numero' => $telefono['numero'],
-                    'descripcion' => $telefono['descripcion']
-                ]);
+            foreach ($request->telefonos as $index => $telefono) {
+                // Busca el teléfono de emergencia correspondiente al RPE del profesor
+                $telefonoEmergencia = TelefonoEmergencia::where('RPE', $profesor->RPE_Profesor)->skip($index)->first();
+                
+                if ($telefonoEmergencia) {
+                    $telefonoEmergencia->update([
+                        'numero' => $telefono['numero'],
+                        'descripcion' => $telefono['descripcion'],
+                    ]);
+                } else {
+                    // Si no existe, puedes optar por crear uno nuevo si así lo deseas
+                    TelefonoEmergencia::create([
+                        'RPE' => $profesor->RPE_Profesor,
+                        'numero' => $telefono['numero'],
+                        'descripcion' => $telefono['descripcion'],
+                    ]);
+                }
             }
 
             session()->flash('success', 'Datos del profesor actualizados exitosamente.');
-            return redirect()->route('profesor.buscar');
+            return redirect()->back(); 
 
         } catch (\Exception $e) {
             session()->flash('error', 'Error al actualizar los datos del profesor: ' . $e->getMessage());
-            return redirect()->route('profesor.buscar');
+            return redirect()->back();
         }
     }
+
 }
