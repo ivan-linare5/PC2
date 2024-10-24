@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Alumno;
-use App\Models\TelefonosAlumnos;
+use App\Models\TelefonoAlumno;
 
 class AlumnoController extends Controller
 {
@@ -30,8 +30,7 @@ class AlumnoController extends Controller
         ]);
 
         try {
-            // Guardar los datos del profesor
-            $alumno = Profesor::create([
+            $alumno = Alumno::create([
                 'clave_Unica' => $request->clave_unica,
                 'nombre_alumno' => $request->nombre_alumno,
                 'primer_apellido' => $request->primer_apellido,
@@ -43,9 +42,9 @@ class AlumnoController extends Controller
 
             // Guardar los teléfonos de emergencia relacionados al alumno
             foreach ($request->telefonos as $telefono) {
-                TelefonosAlumnos::create([
+                TelefonoAlumno::create([
                     'clave_Unica' => $alumno->clave_Unica,
-                    'numero' => $telefono['telefono'],
+                    'telefono' => $telefono['telefono'],
                     'descripcion' => $telefono['descripcion']
                 ]);
             }
@@ -138,9 +137,9 @@ class AlumnoController extends Controller
         
         try {
             // Buscar al alumno por su clave
-            $alumno = Profesor::where('clave_Unica', $request->clave_unica)->firstOrFail();
+            $alumno = Alumno::where('clave_Unica', $request->clave_unica)->firstOrFail();
             
-            $profesor->update([
+            $alumno->update([
                 'nombre_alumno' => $request->nombre_alumno,
                 'primer_apellido' => $request->primer_apellido,
                 'segundo_apellido' => $request->segundo_apellido,
