@@ -10,7 +10,7 @@ class TelefonoAlumno extends Model
     use HasFactory;
 
     // Especifica el nombre de la tabla
-    protected $table = 'telefonos_alumno';
+    protected $table = 'telefonos_alumnos';
 
     // Especificar la clave primaria personalizada
     protected $primaryKey = 'id_Tel_Al';

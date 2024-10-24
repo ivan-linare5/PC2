@@ -33,7 +33,7 @@ Route::get('/alumnos', [AlumnoController::class, 'index'])->name('alumnos.index'
 Route::post('/alumno/guardar', [AlumnoController::class, 'guardar'])->name('alumno.guardar');
 Route::get('/alumno/buscar', [AlumnoController::class, 'buscar'])->name('alumno.buscar');
 Route::put('/alumno/update', [AlumnoController::class, 'update'])->name('alumno.update');
-Route::get('/alumno/search/{clave_unica}', [AlumnoController::class, 'search'])->name('alumno.search');
+Route::get('/alumno/search/{clave_Unica}', [AlumnoController::class, 'search'])->name('alumno.search');
 //GRUPOS
 Route::get('/grupos', [GrupoController::class, 'index'])->name('grupos.index');
 

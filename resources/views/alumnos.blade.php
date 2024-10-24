@@ -26,7 +26,7 @@
     @csrf
     @method('GET')
         <div class="mb-4">
-            <input type="number" class="form-control" name="clave_unica" id="input1" placeholder="CLAVE UNICA">
+            <input type="number" class="form-control" name="clave_Unica" id="input1" placeholder="CLAVE UNICA">
         </div>
         <div class="mb-4">
             <input type="text" class="form-control" name="nombre" id="input2" placeholder="NOMBRE">
@@ -54,8 +54,8 @@
                     @method('POST')
 
                     <div class="mb-3">
-                        <label for="clave_unica" class="form-label">Clave Unica <span class="text-danger">*</span></label>
-                        <input type="number" name="rpe" class="form-control" id="rpe" placeholder="Clave_Unica" required>
+                        <label for="clave_Unica" class="form-label">Clave Unica <span class="text-danger">*</span></label>
+                        <input type="number" name="clave_Unica" class="form-control" id="rpe" placeholder="clave_Unica" required>
                     </div>
                     <div class="mb-3">
                         <label for="nombre_alumno" class="form-label">Nombre <span class="text-danger">*</span></label>
@@ -87,7 +87,7 @@
                         <label for="telefonosAlumnos" class="form-label">Teléfonos Alumno <span class="text-danger">*</span></label>
                         <div id="telefonos-container">
                             <div class="input-group mb-3">
-                                <input type="text" name="telefonos[0][numero]" class="form-control" placeholder="Teléfono" minlength="10" maxlength="10" pattern="\d{10}" title="Debe tener exactamente 10 dígitos" required>
+                                <input type="text" name="telefonos[0][telefono]" class="form-control" placeholder="Teléfono" minlength="10" maxlength="10" pattern="\d{10}" title="Debe tener exactamente 10 dígitos" required>
                                 <input type="text" name="telefonos[0][descripcion]" class="form-control" placeholder="Descripción" required>
                             </div>
                         </div>

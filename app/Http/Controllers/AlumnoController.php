@@ -16,22 +16,11 @@ class AlumnoController extends Controller
 
     public function guardar(Request $request)
     {
-        // Validar los datos recibidos
-        $request->validate([
-            'clave_unica' => 'required|integer',           
-            'nombre_alumno' => 'required|string|max:50',
-            'primer_apellido' => 'required|string|max:50',
-            'segundo_apellido' => 'nullable|string|max:50',
-            'correo_institucional' => 'required|email|max:50',
-            'clave_carrera' => 'required|string|max:25',
-            'fecha_ingreso' => 'required|string',
-            'telefonos.*.numero' => 'required|digits:10', // Validar que cada teléfono tenga 10 dígitos
-            'telefonos.*.descripcion' => 'required|string|max:150'
-        ]);
+       
 
         try {
             $alumno = Alumno::create([
-                'clave_Unica' => $request->clave_unica,
+                'clave_Unica' => $request->clave_Unica,
                 'nombre_alumno' => $request->nombre_alumno,
                 'primer_apellido' => $request->primer_apellido,
                 'segundo_apellido' => $request->segundo_apellido,
@@ -137,7 +126,7 @@ class AlumnoController extends Controller
         
         try {
             // Buscar al alumno por su clave
-            $alumno = Alumno::where('clave_Unica', $request->clave_unica)->firstOrFail();
+            $alumno = Alumno::where('clave_Unica', $request->clave_Unica)->firstOrFail();
             
             $alumno->update([
                 'nombre_alumno' => $request->nombre_alumno,
@@ -151,7 +140,7 @@ class AlumnoController extends Controller
             // Actualizar los teléfonos 
             foreach ($request->telefonos as $index => $telefono) {
                 // Busca el teléfono de emergencia correspondiente al RPE del profesor
-                $telefonoAlumno = TelefonoAlumno::where('clave_unica', $alumno->Clave_Unica)->skip($index)->first();
+                $telefonoAlumno = TelefonoAlumno::where('clave_Unica', $alumno->Clave_Unica)->skip($index)->first();
                 
                 if ($telefonoAlumno) {
                     $telefonoAlumno->update([

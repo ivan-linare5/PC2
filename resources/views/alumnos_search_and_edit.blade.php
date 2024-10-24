@@ -25,8 +25,8 @@
     @method('PUT') 
     
     <div class="mb-3">
-        <label for="clave_unica" class="form-label">Clave Unica <span class="text-danger">*</span></label>
-        <input type="text" name="clave_unica" class="form-control" id="clave_unica" value="{{ $alumno->clave_Unica}}" required readonly>
+        <label for="clave_Unica" class="form-label">Clave Unica <span class="text-danger">*</span></label>
+        <input type="text" name="clave_Unica" class="form-control" id="clave_Unica" value="{{ $alumno->clave_Unica}}" required readonly>
     </div>
 
     <div class="mb-3">
