@@ -9,22 +9,33 @@ class Alumno extends Model
 {
     use HasFactory;
 
-    // Specify the name of the table
+    // Especifica el nombre de la tabla
     protected $table = 'alumno';
 
-    // Disable timestamps
+    // Desactivar el uso de timestamps
     public $timestamps = false;
 
-    // Define the fillable attributes
+    // Especificar la clave primaria personalizada
+    protected $primaryKey = 'clave_Unica';
+
+     // Si tu clave primaria no es autoincrementable, desactiva el auto incremento
+     public $incrementing = false;
+     
+
+    // Define los atributos que se pueden llenar
     protected $fillable = [
-        'no_registro',
-        'clave_unica',
+        'clave_Unica',
         'nombre_alumno',
-        'apellido_paterno',
-        'apellido_materno',
-        'correo',
+        'primer_apellido',
+        'segundo_apellido',
+        'correo_institucional',
         'clave_carrera',
-        'telefono',
-        'fecha_ingreso',
+        'fecha_ingreso'
     ];
+
+    public function telefonosAlumno()
+    {
+        // Relación uno a muchos (un profesor puede tener varios teléfonos de emergencia)
+        return $this->hasMany(TelefonoAlumno::class, 'clave_unica', 'clave_Unica');
+    }
 }
