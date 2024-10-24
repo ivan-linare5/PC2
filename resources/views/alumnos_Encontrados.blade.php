@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                 @foreach ($alumnos as $alumno)
-                <tr onclick="window.location='{{ route('profesor.search', $alumno->clave_Unica) }}'" style="cursor: pointer;">
+                <tr onclick="window.location='{{ route('alumno.search', $alumno->clave_Unica) }}'" style="cursor: pointer;">
                     <td>{{ $alumno->clave_Unica }}</td>
                     <td>{{ $alumno->nombre_alumno }}</td>
                     <td>{{ $alumno->primer_apellido }}</td>

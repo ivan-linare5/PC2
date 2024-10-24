@@ -81,16 +81,16 @@ class AlumnoController extends Controller
         }
         else
         {
-            return $this->search($request->rpe);
+            return $this->search($request->clave_Unica);
         }
     }
 
-    public function search($clave_unica)
+    public function search($clave_Unica)
     {
         
 
         // Realizar la búsqueda en la base de datos
-        $alumno = Alumno::where('clave_Unica', $clave_unica)->first(); // Obtener solo el primer resultado
+        $alumno = Alumno::where('clave_Unica', $clave_Unica)->first(); // Obtener solo el primer resultado
 
         // Verificar si se encontró el profesor
         if ($alumno) {
