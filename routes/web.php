@@ -23,9 +23,17 @@ Route::get('/profesor/search/{rpe}', [ProfesorController::class, 'search'])->nam
 
 //MATERIAS
 Route::get('/materias', [MateriaController::class, 'index'])->name('materias.index');
+Route::post('/materias/guardar', [MateriaController::class, 'guardar'])->name('materia.guardar');
+Route::get('/materias/buscar', [MateriaController::class, 'buscar'])->name('materia.buscar');
+Route::post('/materias/update', [MateriaController::class, 'update'])->name('materia.update');
+
 
 //SALONES
 Route::get('/salones', [SalonController::class, 'index'])->name('salones.index');
+Route::post('/salones/guardar', [SalonController::class, 'guardar'])->name('salon.guardar');
+Route::get('/salones/buscar', [SalonController::class, 'buscar'])->name('salon.buscar');
+Route::put('/salones/update', [SalonController::class, 'update'])->name('salon.update');
+
 
 //ALUMNOS
 
