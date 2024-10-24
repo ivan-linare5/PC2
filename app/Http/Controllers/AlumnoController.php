@@ -32,7 +32,7 @@ class AlumnoController extends Controller
             // Guardar los teléfonos de emergencia relacionados al alumno
             foreach ($request->telefonos as $telefono) {
                 TelefonoAlumno::create([
-                    'clave_Unica' => $alumno->clave_Unica,
+                    'clave_unica' => $alumno->clave_Unica,
                     'telefono' => $telefono['telefono'],
                     'descripcion' => $telefono['descripcion']
                 ]);
