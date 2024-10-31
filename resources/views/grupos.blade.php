@@ -7,24 +7,26 @@
     <div class="mb-3">
         <label for="courseSelect" class="form-label">Seleccionar una materia</label>
         <select class="form-select" id="courseSelect">
-            <option selected>2053 - ADMINISTRACION DE PROYECTOS I - ÁREA DE CIENCIAS DE LA COMPUTACIÓN</option>
+            @foreach($materias as $materia)
+                <option value="{{ $materia->clave_materia }}">{{ $materia->clave_materia }} - {{ $materia->nombre_materia }}</option>
+            @endforeach
         </select>
     </div>
     
     <div class="border p-3 mb-3">
-        <h4>2053 - ADMINISTRACION DE PROYECTOS I</h4>
+        <h4 id="materia-details-title"></h4>
         <div class="row">
             <div class="col-md-3">
-                <p><strong>Horas clase:</strong> 4</p>
+                <p><strong>Horas clase:</strong> <span id="horas-clase"></span></p>
             </div>
             <div class="col-md-3">
-                <p><strong>Horas laboratorio:</strong> 0</p>
+                <p><strong>Horas laboratorio:</strong> <span id="horas-laboratorio"></span></p>
             </div>
             <div class="col-md-3">
-                <p><strong>Créditos:</strong> 8</p>
+                <p><strong>Créditos:</strong> <span id="creditos"></span></p>
             </div>
             <div class="col-md-3">
-                <p><strong>Laboratorio:</strong> No</p>
+                <p><strong>Laboratorio:</strong> <span id="laboratorio"></span></p>
             </div>
         </div>
     </div>
@@ -46,39 +48,34 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="grupos-table-body">
+                @foreach($horarios as $horario)
                 <tr>
-                    <td>2053.01</td>
-                    <td>13-14</td>
-                    <td>13-14</td>
-                    <td>13-14</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>F-16</td>
-                    <td>28 / 28</td>
-                    <td>RAMOS BLANCO ALBERTO</td>
+                    <td>{{ $horario->clave }}</td>
+                    <td>{{ $horario->lun_ini }}-{{ $horario->lun_fin }}</td>
+                    <td>{{ $horario->mar_ini }}-{{ $horario->mar_fin }}</td>
+                    <td>{{ $horario->mie_ini }}-{{ $horario->mie_fin }}</td>
+                    <td>{{ $horario->jue_ini }}-{{ $horario->jue_fin }}</td>
+                    <td>{{ $horario->vie_ini }}-{{ $horario->vie_fin }}</td>
+                    <td>{{ $horario->sab_ini }}-{{ $horario->sab_fin }}</td>
+                    <td>{{ $horario->salon ? $horario->salon->id_salon : 'Sin salón' }}</td>
+                    <td>
+                        @if($horario->horarioCupo->isNotEmpty())
+                            @foreach($horario->horarioCupo as $cupo)
+                                {{ $cupo->cupo }} / {{ $cupo->cupo_max }} 
+                                @if (!$loop->last) | @endif <!-- Separador entre los cupos -->
+                            @endforeach
+                        @else
+                            No hay cupos disponibles
+                        @endif
+                    </td>
+                    <td>{{ $horario->profesor ? $horario->profesor->nombre_profesor . ' ' . $horario->profesor->primer_apellido . ' ' . ($horario->profesor->segundo_apellido ?? '') : 'Sin profesor' }}</td>
                     <td>
                         <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
                         <button class="btn btn-sm btn-danger">Eliminar</button>
                     </td>
                 </tr>
-                <tr>
-                    <td>2053.02</td>
-                    <td>8-9</td>
-                    <td>8-9</td>
-                    <td>8-9</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td>F-05</td>
-                    <td>28 / 28</td>
-                    <td>RODRIGUEZ FLORES HUGO ARMANDO</td>
-                    <td>
-                        <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
-                        <button class="btn btn-sm btn-danger">Eliminar</button>
-                    </td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -135,7 +132,9 @@
                     <div class="mb-3">
                         <label for="profesor" class="form-label">Profesor</label>
                         <select class="form-select" id="profesor">
-                            <option selected>10285 - RAMOS BLANCO ALBERTO</option>
+                            @foreach($profesores as $profesor)
+                                <option value="{{ $profesor->RPE_Profesor }}">{{ $profesor->RPE_Profesor }} - {{ $profesor->nombre_profesor }} {{ $profesor->primer_apellido }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
