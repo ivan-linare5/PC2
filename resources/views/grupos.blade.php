@@ -51,18 +51,18 @@
             <tbody id="grupos-table-body">
                 @foreach($horarios as $horario)
                 <tr>
-                    <td>{{ $horario->clave }}</td>
-                    <td>{{ $horario->lun_ini }}-{{ $horario->lun_fin }}</td>
-                    <td>{{ $horario->mar_ini }}-{{ $horario->mar_fin }}</td>
-                    <td>{{ $horario->mie_ini }}-{{ $horario->mie_fin }}</td>
-                    <td>{{ $horario->jue_ini }}-{{ $horario->jue_fin }}</td>
-                    <td>{{ $horario->vie_ini }}-{{ $horario->vie_fin }}</td>
-                    <td>{{ $horario->sab_ini }}-{{ $horario->sab_fin }}</td>
+                    <td>{{ $horario->clave_horario }}</td>
+                    <td>{{ $horario->lun_Ini }}-{{ $horario->lun_Fin }}</td>
+                    <td>{{ $horario->mar_Ini }}-{{ $horario->mar_Fin }}</td>
+                    <td>{{ $horario->mie_Ini }}-{{ $horario->mie_Fin }}</td>
+                    <td>{{ $horario->jue_Ini }}-{{ $horario->jue_Fin }}</td>
+                    <td>{{ $horario->vie_Ini }}-{{ $horario->vie_Fin }}</td>
+                    <td>{{ $horario->sab_Ini }}-{{ $horario->sab_Fin }}</td>
                     <td>{{ $horario->salon ? $horario->salon->id_salon : 'Sin salón' }}</td>
                     <td>
                         @if($horario->horarioCupo->isNotEmpty())
                             @foreach($horario->horarioCupo as $cupo)
-                                {{ $cupo->cupo }} / {{ $cupo->cupo_max }} 
+                                {{ $cupo->cupo }}
                                 @if (!$loop->last) | @endif <!-- Separador entre los cupos -->
                             @endforeach
                         @else
@@ -104,10 +104,7 @@
                             <label for="salon" class="form-label">Salón</label>
                             <input type="text" class="form-control" id="salon" value="F-16">
                         </div>
-                        <div class="col-md-3">
-                            <label for="checador" class="form-label">Checador</label>
-                            <input type="text" class="form-control" id="checador" value="Checador">
-                        </div>
+
                         <div class="col-md-3">
                             <label for="cupo" class="form-label">Cupo</label>
                             <input type="text" class="form-control" id="cupo" value="15">

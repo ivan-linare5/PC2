@@ -56,7 +56,7 @@ class Horario extends Model
     // Relación con el modelo Salon
     public function salon()
     {
-        return $this->belongsTo(Salon::class, 'id_salon');
+        return $this->belongsTo(Salon::class, 'ID_salon', 'id_salon');
     }
 
     // Relación con el modelo HorarioCupo (si lo necesitas)
