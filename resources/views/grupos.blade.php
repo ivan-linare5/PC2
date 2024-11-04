@@ -7,6 +7,7 @@
     <div class="mb-3">
         <label for="courseSelect" class="form-label">Seleccionar una materia</label>
         <select class="form-select" id="courseSelect">
+            <option value="">-- Selecciona una materia --</option>
             @foreach($materias as $materia)
                 <option value="{{ $materia->clave_materia }}">{{ $materia->clave_materia }} - {{ $materia->nombre_materia }}</option>
             @endforeach
@@ -50,7 +51,24 @@
             </thead>
             <tbody id="grupos-table-body">
                 @foreach($horarios as $horario)
-                <tr>
+                <tr data-materia="{{ $horario->clave_materia }}"
+                    data-horario-id="{{ $horario->clave_horario }}"
+                    data-profesor-id="{{ $horario->RPE_profesor }}"
+                    data-salon-id="{{ $horario->ID_salon }}"
+                    data-grupo="{{ $horario->numero_grupo }}"
+                    data-cupo="{{ $horario->horarioCupo->first()->cupo ?? '' }}"
+                    data-lun-ini="{{ $horario->lun_Ini }}"
+                    data-lun-fin="{{ $horario->lun_Fin }}"
+                    data-mar-ini="{{ $horario->mar_Ini }}"
+                    data-mar-fin="{{ $horario->mar_Fin }}"
+                    data-mie-ini="{{ $horario->mie_Ini }}"
+                    data-mie-fin="{{ $horario->mie_Fin }}"
+                    data-jue-ini="{{ $horario->jue_Ini }}"
+                    data-jue-fin="{{ $horario->jue_Fin }}"
+                    data-vie-ini="{{ $horario->vie_Ini }}"
+                    data-vie-fin="{{ $horario->vie_Fin }}"
+                    data-sab-ini="{{ $horario->sab_Ini }}"
+                    data-sab-fin="{{ $horario->sab_Fin }}">
                     <td>{{ $horario->clave_horario }}</td>
                     <td>{{ $horario->lun_Ini }}-{{ $horario->lun_Fin }}</td>
                     <td>{{ $horario->mar_Ini }}-{{ $horario->mar_Fin }}</td>
@@ -81,79 +99,205 @@
     </div>
 
     <div class="d-flex gap-4 mt-3">
-        <button type="button" class="btn btn-primary" onclick="Buscar()">Buscar</button>
-        <button type="button" class="btn btn-primary">Agregar Nuevo</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Agregar Nuevo</button>
     </div>
+
 </div>
 
+<!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">EDITAR GRUPO DE TEORÍA</h5>
+                <h5 class="modal-title" id="editModalLabel">Editar Grupo</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label for="grupo" class="form-label">Grupo</label>
-                            <input type="text" class="form-control" id="grupo" value="2">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="salon" class="form-label">Salón</label>
-                            <input type="text" class="form-control" id="salon" value="F-16">
-                        </div>
-
-                        <div class="col-md-3">
-                            <label for="cupo" class="form-label">Cupo</label>
-                            <input type="text" class="form-control" id="cupo" value="15">
-                        </div>
-                    </div>
-                    
+            <form method="POST" action="{{ route('grupos.update') }}">
+                @csrf
+                <input type="hidden" name="horario_id" id="horarioId">
+                
+                <div class="modal-body">
+                    <!-- Profesor selection -->
                     <div class="mb-3">
-                        <label class="form-label">Horario</label>
-                        <div class="row">
-                            @foreach(['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'] as $day)
-                                <div class="col-md-2">
-                                    <label>{{ $day }}</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Inicio" aria-label="{{ $day }} Inicio">
-                                        <input type="text" class="form-control" placeholder="Fin" aria-label="{{ $day }} Fin">
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="profesor" class="form-label">Profesor</label>
-                        <select class="form-select" id="profesor">
+                        <label for="profesorSelect" class="form-label">Seleccionar Profesor</label>
+                        <select class="form-select" id="profesorSelect" name="profesor_id">
+                            <option value="">-- Selecciona un profesor --</option>
                             @foreach($profesores as $profesor)
-                                <option value="{{ $profesor->RPE_Profesor }}">{{ $profesor->RPE_Profesor }} - {{ $profesor->nombre_profesor }} {{ $profesor->primer_apellido }}</option>
+                                <option value="{{ $profesor->RPE_Profesor }}">{{ $profesor->nombre_profesor }} {{ $profesor->primer_apellido }}</option>
                             @endforeach
                         </select>
                     </div>
+
+                    <!-- Salon selection -->
                     <div class="mb-3">
-                        <label class="form-label">Inscribir el laboratorio con la misma clave (laboratorio obligatorio)</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="laboratorio" id="labSi" value="Si">
-                            <label class="form-check-label" for="labSi">Sí</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="laboratorio" id="labNo" value="No" checked>
-                            <label class="form-check-label" for="labNo">No</label>
-                        </div>
+                        <label for="salonSelect" class="form-label">Seleccionar Salón</label>
+                        <select class="form-select" id="salonSelect" name="salon_id">
+                            <option value="">-- Selecciona un salón --</option>
+                            @foreach($salones as $salon)
+                                <option value="{{ $salon->id_salon }}">{{ $salon->id_salon }} - Capacidad: {{ $salon->capacidad }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                </form>
+
+                    <!-- Grupo -->
+                    <div class="mb-3">
+                        <label for="grupoInput" class="form-label">Grupo</label>
+                        <input type="number" class="form-control" id="grupoInput" name="grupo" required>
+                    </div>
+
+                    <!-- Cupo -->
+                    <div class="mb-3">
+                        <label for="cupoInput" class="form-label">Cupo</label>
+                        <input type="number" class="form-control" id="cupoInput" name="cupo" required>
+                    </div>
+
+                    <!-- Horas para cada día -->
+                    <div class="row">
+                        @foreach(['lun', 'mar', 'mie', 'jue', 'vie', 'sab'] as $dia)
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ $dia }}Ini" class="form-label">Hora Inicio {{ ucfirst($dia) }}</label>
+                                <input type="number" class="form-control" id="{{ $dia }}Ini" name="{{ $dia }}_Ini" min="0" max="23">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ $dia }}Fin" class="form-label">Hora Fin {{ ucfirst($dia) }}</label>
+                                <input type="number" class="form-control" id="{{ $dia }}Fin" name="{{ $dia }}_Fin" min="0" max="23">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Agregar Nuevo Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Agregar Nuevo Grupo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Guardar cambios</button>
-            </div>
+            <form method="POST" action="{{ route('grupos.store') }}">
+                @csrf
+                <div class="modal-body">
+                    <!-- Clave Materia selection -->
+                    <div class="mb-3">
+                        <label for="claveMateria" class="form-label">Seleccionar Materia</label>
+                        <select class="form-select" id="claveMateria" name="clave_materia" required>
+                            <option value="">-- Selecciona una materia --</option>
+                            @foreach($materias as $materia)
+                                <option value="{{ $materia->clave_materia }}">{{ $materia->clave_materia }} - {{ $materia->nombre_materia }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- RPE Registro (Manual Input) -->
+                    <div class="mb-3">
+                        <label for="RPERegistro" class="form-label">RPE Registro</label>
+                        <input type="number" class="form-control" id="RPERegistro" name="RPE_registro" required>
+                    </div>
+
+                    <!-- RPE Profesor selection -->
+                    <div class="mb-3">
+                        <label for="RPEProfesor" class="form-label">Seleccionar Profesor</label>
+                        <select class="form-select" id="RPEProfesor" name="RPE_profesor" required>
+                            <option value="">-- Selecciona un profesor --</option>
+                            @foreach($profesores as $profesor)
+                                <option value="{{ $profesor->RPE_Profesor }}">{{ $profesor->nombre_profesor }} {{ $profesor->primer_apellido }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- ID Salon selection -->
+                    <div class="mb-3">
+                        <label for="IDSalon" class="form-label">Seleccionar Salón</label>
+                        <select class="form-select" id="IDSalon" name="ID_salon" required>
+                            <option value="">-- Selecciona un salón --</option>
+                            @foreach($salones as $salon)
+                                <option value="{{ $salon->id_salon }}">{{ $salon->id_salon }} - Capacidad: {{ $salon->capacidad }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Configuración Semestre (Manual Input) -->
+                    <div class="mb-3">
+                        <label for="ConfiguracionSemestre" class="form-label">Configuración Semestre</label>
+                        <input type="number" class="form-control" id="ConfiguracionSemestre" name="id_configuracionsemestre" required>
+                    </div>
+
+                    <!-- Grupo -->
+                    <div class="mb-3">
+                        <label for="grupoInput" class="form-label">Grupo</label>
+                        <input type="number" class="form-control" id="grupoInput" name="numero_grupo" required>
+                    </div>
+                    <!-- Tipo Materia -->
+                    <div class="mb-3">
+                        <label for="tipoMateria" class="form-label">Tipo de Materia</label>
+                        <input type="text" class="form-control" id="tipoMateria" name="tipo_materia" required>
+                    </div>
+
+                    <!-- Horas para cada día -->
+                    <div class="row">
+                        @foreach(['lun', 'mar', 'mie', 'jue', 'vie', 'sab'] as $dia)
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ $dia }}Ini" class="form-label">Hora Inicio {{ ucfirst($dia) }}</label>
+                                <input type="number" class="form-control" id="{{ $dia }}Ini" name="{{ $dia }}_Ini" min="0" max="23">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ $dia }}Fin" class="form-label">Hora Fin {{ ucfirst($dia) }}</label>
+                                <input type="number" class="form-control" id="{{ $dia }}Fin" name="{{ $dia }}_Fin" min="0" max="23">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Agregar Grupo</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('courseSelect').addEventListener('change', function() {
+        var selectedValue = this.value;
+        var rows = document.querySelectorAll('#grupos-table-body tr');
+        
+        rows.forEach(function(row) {
+            if (selectedValue === "" || row.getAttribute('data-materia') === selectedValue) {
+                row.style.display = ''; // Mostrar fila
+            } else {
+                row.style.display = 'none'; // Ocultar fila
+            }
+        });
+    });
+
+    document.querySelectorAll('.btn-success').forEach(button => {
+        button.addEventListener('click', function () {
+            const row = this.closest('tr');
+
+            document.getElementById('horarioId').value = row.getAttribute('data-horario-id');
+            document.getElementById('profesorSelect').value = row.getAttribute('data-profesor-id') || '';
+            document.getElementById('salonSelect').value = row.getAttribute('data-salon-id') || '';
+            document.getElementById('grupoInput').value = row.getAttribute('data-grupo') || '';
+            document.getElementById('cupoInput').value = row.getAttribute('data-cupo') || '';
+
+            const days = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab'];
+            days.forEach(day => {
+                document.getElementById(`${day}Ini`).value = row.getAttribute(`data-${day}-ini`) || '';
+                document.getElementById(`${day}Fin`).value = row.getAttribute(`data-${day}-fin`) || '';
+            });
+        });
+    });
+</script>
+
 @endsection

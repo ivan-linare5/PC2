@@ -44,6 +44,9 @@ Route::put('/alumno/update', [AlumnoController::class, 'update'])->name('alumno.
 Route::get('/alumno/search/{clave_Unica}', [AlumnoController::class, 'search'])->name('alumno.search');
 //GRUPOS
 Route::get('/grupos', [GrupoController::class, 'index'])->name('grupos.index');
+Route::post('/grupos/update', [GrupoController::class, 'update'])->name('grupos.update');
+Route::post('/grupos/store', [GrupoController::class, 'store'])->name('grupos.store');
+
 
 //LISTAS
 Route::get('/listas', [ListaController::class, 'index'])->name('listas.index');
