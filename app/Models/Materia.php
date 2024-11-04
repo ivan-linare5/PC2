@@ -11,6 +11,9 @@ class Materia extends Model
     use HasFactory;
 
     protected $table = 'materia';
+    
+     //  clave primaria
+     protected $primaryKey = 'clave_materia'; 
 
     protected $fillable = [
         'clave_materia',
@@ -21,4 +24,28 @@ class Materia extends Model
         'clave_quimica',
         'creditos_quimica',
     ];
+
+    public function profesor()
+    {
+        return $this->belongsTo(Profesor::class, 'RPE_Profesor');
+    }
+
+    public function alumnos()
+    {
+        return $this->belongsToMany(Alumno::class, 'grupo_alumno', 'clave_materia', 'clave_Unica');
+    }
+
+    public function salon()
+    {
+        return $this->belongsTo(Salon::class, 'id_salon'); 
+    }
+
+    public function horarios()
+{
+    return $this->hasMany(Horario::class, 'clave_materia', 'clave_materia');
 }
+
+
+    
+}
+

@@ -47,5 +47,11 @@ Route::get('/grupos', [GrupoController::class, 'index'])->name('grupos.index');
 
 //LISTAS
 Route::get('/listas', [ListaController::class, 'index'])->name('listas.index');
+Route::get('/listas/asistencia/{clave_horario}', [ListaController::class, 'obtenerListaAsistencia'])->name('listas.asistencia');
+Route::get('/listas/asistencia/pdf/{clave_horario}', [ListaController::class, 'exportarPDF'])->name('listas.exportarPDF');
 
+Route::get('/buscar-horario', [ListaController::class, 'buscarHorario'])->name('buscar.horario');
+
+//Route::get('/exportar/{clave_horario}', [ListaController::class, 'exportar'])->name('listas.exportar');
+Route::get('/exportar-excel/{clave_horario}', [ListaController::class, 'exportarExcel'])->name('exportarExcel');
 

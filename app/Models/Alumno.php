@@ -36,6 +36,13 @@ class Alumno extends Model
     public function telefonosAlumno()
     {
         // Relación uno a muchos (un profesor puede tener varios teléfonos de emergencia)
-        return $this->hasMany(TelefonoAlumno::class, 'clave_unica', 'clave_Unica');
+        return $this->hasMany(TelefonoAlumno::class, 'clave_Unica', 'clave_Unica');
     }
+
+   
+    public function horarios()
+    {
+        return $this->belongsToMany(Horario::class, 'inscripcion', 'clave_Unica', 'clave_horario'); 
+    }
+    
 }

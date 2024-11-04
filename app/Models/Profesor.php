@@ -36,7 +36,16 @@ class Profesor extends Model
 
     public function telefonosEmergencia()
     {
-        // Relación uno a muchos (un profesor puede tener varios teléfonos de emergencia)
         return $this->hasMany(TelefonoEmergencia::class, 'RPE', 'RPE_Profesor');
+    }
+
+    public function materias()
+    {
+        return $this->hasMany(Materia::class, 'RPE_Profesor', 'RPE_Profesor');
+    }
+
+    public function horarios()
+    {
+        return $this->hasMany(Horario::class, 'RPE_Profesor'); 
     }
 }

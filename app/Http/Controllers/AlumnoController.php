@@ -166,6 +166,6 @@ class AlumnoController extends Controller
         }
     }
 
-    
+        
 
 }

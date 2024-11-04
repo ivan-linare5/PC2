@@ -64,4 +64,22 @@ class Horario extends Model
     {
         return $this->hasMany(HorarioCupo::class, 'clave_horario', 'clave_horario');
     }
+
+    public function configuracion()
+    {
+        return $this->belongsTo(ConfiguracionSemestre::class, 'id_configuracionsemestre'); 
+    }
+
+    public function inscripcion()
+    {
+    return $this->hasMany(Inscripcion::class, 'clave_horario', 'clave_horario'); 
+    
+    }
+
+    public function alumnos()
+    {
+        return $this->belongsToMany(Alumno::class, 'inscripcion', 'clave_horario', 'clave_Unica'); 
+    }
+
+
 }
