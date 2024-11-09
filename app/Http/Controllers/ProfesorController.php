@@ -23,6 +23,7 @@ class ProfesorController extends Controller
             'primer_apellido' => 'required|string|max:50',
             'segundo_apellido' => 'nullable|string|max:50',
             'correo_institucional' => 'required|email|max:50',
+            'horas_definitivas' => 'nullable|integer',
             'grado_maximo' => 'required|string|max:25',
             'telefono_personal' => 'required|digits:10',
             'telefonos.*.numero' => 'required|digits:10', // Validar que cada teléfono tenga 10 dígitos
@@ -37,9 +38,10 @@ class ProfesorController extends Controller
                 'primer_apellido' => $request->primer_apellido,
                 'segundo_apellido' => $request->segundo_apellido,
                 'correo_institucional' => $request->correo_institucional,
+                'horas_definitivas' => $request->horas_definitivas,
                 'grado_maximo' => $request->grado_maximo,
                 'telefono_personal' => $request->telefono_personal,
-                'Activo' => 1 
+                'Activo' => 1 //por default cada que se registra un nuevo profesor esta activo
             ]);
 
             // Guardar los teléfonos de emergencia relacionados al profesor

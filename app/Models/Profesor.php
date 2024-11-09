@@ -29,6 +29,7 @@ class Profesor extends Model
         'primer_apellido',
         'segundo_apellido',
         'correo_institucional',
+        'horas_definitivas',
         'telefono_personal',
         'grado_maximo',
         'Activo'

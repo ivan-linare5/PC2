@@ -55,6 +55,11 @@
     </div>
 
     <div class="mb-3">
+        <label for="horas_definitivas" class="form-label">Horas definitivas totales</label>
+        <input type="number" name="horas_definitivas" class="form-control" id="horas_definitivas" value="{{ $profesor->horas_definitivas }}" min='0' disabled>
+    </div>
+
+    <div class="mb-3">
         <label for="telefono_personal" class="form-label">Telefono Personal <span class="text-danger">*</span></label>
         <input type="text" name="telefono_personal" class="form-control" id="telefono_personal" value="{{ $profesor->telefono_personal }}" minlength="10" maxlength="10" pattern="\d{10}" title="Debe tener exactamente 10 dígitos"required disabled>
     </div>
@@ -84,7 +89,7 @@
     <div class="mb-3">
         <input type="hidden" name="activo" value="0"> <!-- Valor por defecto si el checkbox no está marcado -->
         <div class="form-check">
-            <input type="checkbox" name="activo" class="form-check-input" id="activo" value="1" {{ $profesor->Activo == 1 ? 'checked' : '' }} required>
+            <input type="checkbox" name="activo" class="form-check-input" id="activo" value="1" {{ $profesor->Activo == 1 ? 'checked' : '' }} required disabled>
             <label for="activo" class="form-label">Activo <span class="text-danger">*</span></label>
         </div>
     </div>

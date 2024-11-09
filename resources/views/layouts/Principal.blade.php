@@ -67,7 +67,6 @@
                         <li><a class="dropdown-item" href="{{ route('alumnos.index') }}">Alumnos</a></li>
                         <li><a class="dropdown-item" href="{{ route('materias.index') }}">Materias</a></li>
                         <li><a class="dropdown-item" href="{{ route('salones.index') }}">Salones</a></li>
-                        <li><a class="dropdown-item" href="{{ route('grupos.index') }}">Grupos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -77,7 +76,7 @@
                     <a class="nav-link" href="#">Estadisticas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Horario</a>
+                    <a class="nav-link" href="{{ route('grupos.index') }}">Horario</a>
                 </li>
             </ul>
             <!-- Menú para cerrar sesión -->

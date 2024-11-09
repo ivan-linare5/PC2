@@ -78,8 +78,12 @@
                         <input type="text" name="grado_maximo" class="form-control" id="grado_maximo" placeholder="Grado Máximo" required>
                     </div>
                     <div class="mb-3">
+                        <label for="horas_definitivas" class="form-label">Horas definitivas totales</label>
+                        <input type="number" name="horas_definitivas" class="form-control" id="horas_definitivas" placeholder="Horas definitivas" min='0'>
+                    </div>
+                    <div class="mb-3">
                         <label for="telefono_personal" class="form-label">Telefono Personal <span class="text-danger">*</span></label>
-                        <input type="text" name="telefono_personal" class="form-control" id="telefono_personal" placeholder="telefono_personal" minlength="10" maxlength="10" pattern="\d{10}" title="Debe tener exactamente 10 dígitos" required>
+                        <input type="text" name="telefono_personal" class="form-control" id="telefono_personal" placeholder="Telefono personal" minlength="10" maxlength="10" pattern="\d{10}" title="Debe tener exactamente 10 dígitos" required>
                     </div>
 
                     <!-- Teléfonos de Emergencia -->
