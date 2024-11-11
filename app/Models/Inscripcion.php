@@ -30,11 +30,15 @@ class Inscripcion extends Model
     }
 
      
-    public function horario()
+    public function horarios()
     {
         return $this->belongsTo(Horario::class, 'clave_horario', 'clave_horario'); 
     }
 
+    public function calificacion()
+        {
+    return $this->hasMany(Calificacion::class, 'id_inscripcion', 'id_inscripcion');
+    }
 
     
 }

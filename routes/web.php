@@ -7,6 +7,7 @@ use App\Http\Controllers\SalonController;
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\GrupoController;
 use App\Http\Controllers\ListaController;
+use App\Http\Controllers\EstadisticaController;
 
 Route::get('/', function () {
     return view('layouts.Principal');
@@ -36,12 +37,13 @@ Route::put('/salones/update', [SalonController::class, 'update'])->name('salon.u
 
 
 //ALUMNOS
-
 Route::get('/alumnos', [AlumnoController::class, 'index'])->name('alumnos.index');
 Route::post('/alumno/guardar', [AlumnoController::class, 'guardar'])->name('alumno.guardar');
 Route::get('/alumno/buscar', [AlumnoController::class, 'buscar'])->name('alumno.buscar');
 Route::put('/alumno/update', [AlumnoController::class, 'update'])->name('alumno.update');
 Route::get('/alumno/search/{clave_Unica}', [AlumnoController::class, 'search'])->name('alumno.search');
+
+
 //GRUPOS
 Route::get('/grupos', [GrupoController::class, 'index'])->name('grupos.index');
 Route::post('/grupos/update', [GrupoController::class, 'update'])->name('grupos.update');
@@ -52,9 +54,15 @@ Route::post('/grupos/store', [GrupoController::class, 'store'])->name('grupos.st
 Route::get('/listas', [ListaController::class, 'index'])->name('listas.index');
 Route::get('/listas/asistencia/{clave_horario}', [ListaController::class, 'obtenerListaAsistencia'])->name('listas.asistencia');
 Route::get('/listas/asistencia/pdf/{clave_horario}', [ListaController::class, 'exportarPDF'])->name('listas.exportarPDF');
-
 Route::get('/buscar-horario', [ListaController::class, 'buscarHorario'])->name('buscar.horario');
-
-//Route::get('/exportar/{clave_horario}', [ListaController::class, 'exportar'])->name('listas.exportar');
 Route::get('/exportar-excel/{clave_horario}', [ListaController::class, 'exportarExcel'])->name('exportarExcel');
+
+
+//Estadistica
+Route::get('/estadisticas', [EstadisticaController::class, 'index'])->name('estadisticas.index');
+
+
+
+
+
 

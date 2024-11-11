@@ -81,5 +81,10 @@ class Horario extends Model
         return $this->belongsToMany(Alumno::class, 'inscripcion', 'clave_horario', 'clave_Unica'); 
     }
 
+    public function configuracionSemestre()
+{
+    return $this->belongsTo(ConfiguracionSemestre::class, 'id_configuracionsemestre', 'id_configuracionsemestre');
+}
+
 
 }

@@ -73,7 +73,7 @@
                     <a class="nav-link" href="{{ route('listas.index') }}">Listas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Estadisticas</a>
+                    <a class="nav-link" href="{{ route('estadisticas.index')}}">Estadisticas</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('grupos.index') }}">Horario</a>
