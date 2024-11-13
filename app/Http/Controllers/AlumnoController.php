@@ -102,7 +102,7 @@ class AlumnoController extends Controller
                  $telefonos = []; // O también podrías usar collect() para convertirlo en una colección
              }
             // Si se encuentra, retorna la vista con los datos del profesor
-            return view('alumno_search_and_edit', compact('alumno', 'telefonos')); 
+            return view('alumnos_search_and_edit', compact('alumno', 'telefonos')); 
         } else {
             // Si no se encuentra, redirigir con un mensaje de error
             return redirect()->back()->with('error', 'No se encontró un alumno con la Clave Unica proporcionada.');
