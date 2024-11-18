@@ -63,17 +63,18 @@
                         Catálogos
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="catalogDropdown">
-                        <li><a class="dropdown-item" href="{{ route('profesores.index') }}" >Profesores</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profesores.index') }}">Profesores</a></li>
                         <li><a class="dropdown-item" href="{{ route('alumnos.index') }}">Alumnos</a></li>
                         <li><a class="dropdown-item" href="{{ route('materias.index') }}">Materias</a></li>
                         <li><a class="dropdown-item" href="{{ route('salones.index') }}">Salones</a></li>
+                        <li><a class="dropdown-item" href="{{ route('facultades.index') }}">Facultades</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('listas.index') }}">Listas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('estadisticas.index')}}">Estadisticas</a>
+                    <a class="nav-link" href="{{ route('estadisticas.index')}}">Estadísticas</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('grupos.index') }}">Horario</a>
@@ -90,7 +91,5 @@
     <main class="container content mt-4">
         @yield('contenido')
     </main>
-
-
 </body>
 </html>

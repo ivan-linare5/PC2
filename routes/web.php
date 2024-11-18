@@ -8,6 +8,7 @@ use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\GrupoController;
 use App\Http\Controllers\ListaController;
 use App\Http\Controllers\EstadisticaController;
+use App\Http\Controllers\FacultadController;
 
 Route::get('/', function () {
     return view('layouts.Principal');
@@ -60,6 +61,15 @@ Route::get('/exportar-excel/{clave_horario}', [ListaController::class, 'exportar
 
 //Estadistica
 Route::get('/estadisticas', [EstadisticaController::class, 'index'])->name('estadisticas.index');
+
+//Facultades
+Route::get('/facultades', [FacultadController::class, 'index'])->name('facultades.index');
+Route::post('/facultades/guardar', [FacultadController::class, 'guardar'])->name('facultades.guardar');
+Route::get('/facultades/buscar', [FacultadController::class, 'buscar'])->name('facultades.buscar');
+Route::get('/facultades/{id_clave}', [FacultadController::class, 'search'])->name('facultades.search');
+Route::post('/facultades/actualizar', [FacultadController::class, 'update'])->name('facultades.update');
+
+Route::get('/facultades/{id_clave}/edit', [FacultadController::class, 'edit'])->name('facultades.edit');
 
 
 
