@@ -36,30 +36,35 @@
     <div class="mb-3">
         <label for="lleva_laboratorio" class="form-label">Lleva Laboratorio <span class="text-danger">*</span></label>
         <select name="lleva_laboratorio" class="form-control" id="lleva_laboratorio" disabled>
-            <option value="Sí" {{ $materia->lleva_laboratorio == 'Sí' ? 'selected' : '' }}>Sí</option>
-            <option value="No" {{ $materia->lleva_laboratorio == 'No' ? 'selected' : '' }}>No</option>
+            <option value="1" {{ $materia->lleva_laboratorio == '1' ? 'selected' : '' }}>Sí</option>
+            <option value="0" {{ $materia->lleva_laboratorio == '0' ? 'selected' : '' }}>No</option>
         </select>
     </div>
 
-    <div class="mb-3">
-        <label for="clave_ingenieria" class="form-label">Clave Ingeniería <span class="text-danger">*</span></label>
-        <input type="text" name="clave_ingenieria" class="form-control" id="clave_ingenieria" value="{{ $materia->clave_ingenieria }}" required disabled>
-    </div>
+    @foreach ($datos as $dato)
+        <div class="mb-3">
+            <label for="clave_{{$dato->facultad->nombre_facultad}}" class="form-label">Clave {{$dato->facultad->nombre_facultad}} <span class="text-danger">*</span></label>
+            <input type="text" name="clave_{{$dato->facultad->nombre_facultad}}" class="form-control" id="clave_{{$dato->facultad->nombre_facultad}}" value="{{ $dato->clave_materia_facultad }}" required disabled>
+        </div>
 
-    <div class="mb-3">
-        <label for="creditos_ingenieria" class="form-label">Créditos Ingeniería <span class="text-danger">*</span></label>
-        <input type="number" name="creditos_ingenieria" class="form-control" id="creditos_ingenieria" value="{{ $materia->creditos_ingenieria }}" required disabled>
-    </div>
+        <div class="mb-3">
+            <label for="creditos_{{$dato->facultad->nombre_facultad}}" class="form-label">Créditos {{$dato->facultad->nombre_facultad}} <span class="text-danger">*</span></label>
+            <input type="number" name="creditos_{{$dato->facultad->nombre_facultad}}" class="form-control" id="creditos_{{$dato->facultad->nombre_facultad}}" value="{{ $dato->creditos }}" required disabled>
+        </div>
+    @endforeach
 
-    <div class="mb-3">
-        <label for="clave_quimica" class="form-label">Clave Química</label>
-        <input type="text" name="clave_quimica" class="form-control" id="clave_quimica" value="{{ $materia->clave_quimica }}" disabled>
-    </div>
-
-    <div class="mb-3">
-        <label for="creditos_quimica" class="form-label">Créditos Química</label>
-        <input type="number" name="creditos_quimica" class="form-control" id="creditos_quimica" value="{{ $materia->creditos_quimica }}" disabled>
-    </div>
+    @foreach ($facultades as $facultad)
+        <div class="mb-3" id="facultad_{{$facultad->clave_facultad}}" style="display: none;">
+            <label for="clave_{{$facultad->nombre_facultad}}" class="form-label">Clave {{$facultad->nombre_facultad}}</label>
+            <input type="text" name="facultades[{{$facultad->clave_facultad}}][clave]" class="form-control" id="clave_{{$facultad->nombre_facultad}}" placeholder="Clave {{$facultad->nombre_facultad}}">
+        </div>
+        <div class="mb-3" id="creditos_{{$facultad->clave_facultad}}" style="display: none;">
+            <label for="creditos_{{$facultad->nombre_facultad}}" class="form-label">Créditos {{$facultad->nombre_facultad}}</label>
+            <input type="number" name="facultades[{{$facultad->clave_facultad}}][creditos]" class="form-control" id="creditos_{{$facultad->nombre_facultad}}" placeholder="Créditos {{$facultad->nombre_facultad}}">
+        </div>
+        <!-- Input oculto para la clave de facultad, incluido en el arreglo de facultades -->
+        <input type="hidden" name="facultades[{{$facultad->clave_facultad}}][clave_facultad]" value="{{$facultad->clave_facultad}}">
+    @endforeach 
 
     <button type="button" class="btn btn-outline-success" id="busca" style="display:none;" onclick="mostrarConfirmacion()">Guardar</button>
     <button type="button" class="btn btn-outline-primary" onclick="activarInputs()" id="edit">Modificar</button>
@@ -98,6 +103,12 @@
             input.disabled = false;
         });
 
+        // Mostrar los campos de facultades
+        @foreach ($facultades as $facultad)
+            document.getElementById('facultad_{{$facultad->clave_facultad}}').style.display = 'block';
+            document.getElementById('creditos_{{$facultad->clave_facultad}}').style.display = 'block';
+        @endforeach
+
         // Ocultar el botón Modificar
         document.getElementById('edit').style.display = 'none';
 
@@ -119,7 +130,6 @@
         const modal = new bootstrap.Modal(document.getElementById('confirmacionModal'));
         modal.show();
     }
-
 </script>
 
 @endsection

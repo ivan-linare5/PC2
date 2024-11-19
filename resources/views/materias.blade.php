@@ -60,26 +60,23 @@
                         <div class="mb-3">
                             <label for="lleva_laboratorio" class="form-label">Lleva Laboratorio <span class="text-danger">*</span></label>
                             <select name="lleva_laboratorio" class="form-control" id="lleva_laboratorio" required>
+                                <option value="" selected disabled>Selecciona una opción</option>
                                 <option value="1">Sí</option>
                                 <option value="0">No</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="clave_ingenieria" class="form-label">Clave Ingeniería</label>
-                            <input type="text" name="clave_ingenieria" class="form-control" id="clave_ingenieria" placeholder="Clave Ingeniería">
-                        </div>
-                        <div class="mb-3">
-                            <label for="creditos_ingenieria" class="form-label">Créditos Ingeniería</label>
-                            <input type="number" name="creditos_ingenieria" class="form-control" id="creditos_ingenieria" placeholder="Créditos Ingeniería">
-                        </div>
-                        <div class="mb-3">
-                            <label for="clave_quimica" class="form-label">Clave Química</label>
-                            <input type="text" name="clave_quimica" class="form-control" id="clave_quimica" placeholder="Clave Química">
-                        </div>
-                        <div class="mb-3">
-                            <label for="creditos_quimica" class="form-label">Créditos Química</label>
-                            <input type="number" name="creditos_quimica" class="form-control" id="creditos_quimica" placeholder="Créditos Química">
-                        </div>
+                        @foreach ($facultades as $facultad)
+                            <div class="mb-3">
+                                <label for="clave_{{$facultad->nombre_facultad}}" class="form-label">Clave {{$facultad->nombre_facultad}}</label>
+                                <input type="text" name="facultades[{{$facultad->clave_facultad}}][clave]" class="form-control" id="clave_{{$facultad->nombre_facultad}}" placeholder="Clave {{$facultad->nombre_facultad}}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="creditos_{{$facultad->nombre_facultad}}" class="form-label">Créditos {{$facultad->nombre_facultad}}</label>
+                                <input type="number" name="facultades[{{$facultad->clave_facultad}}][creditos]" class="form-control" id="creditos_{{$facultad->nombre_facultad}}" placeholder="Créditos {{$facultad->nombre_facultad}}">
+                            </div>
+                            <!-- Input oculto para la clave de facultad, incluido en el arreglo de facultades -->
+                            <input type="hidden" name="facultades[{{$facultad->clave_facultad}}][clave_facultad]" value="{{$facultad->clave_facultad}}">
+                        @endforeach                      
 
                         <button type="submit" class="btn btn-success">Guardar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>

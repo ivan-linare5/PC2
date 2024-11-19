@@ -41,9 +41,15 @@ class Materia extends Model
     }
 
     public function horarios()
-{
-    return $this->hasMany(Horario::class, 'clave_materia', 'clave_materia');
-}
+    {
+        return $this->hasMany(Horario::class, 'clave_materia', 'clave_materia');
+    }
+
+    public function creditosMateriasFacultade()
+    {
+        return $this->hasMany(CreditosMateriasFacultades::class, 'clave_materia', 'clave_materia');
+    }
+    
 
 
     
