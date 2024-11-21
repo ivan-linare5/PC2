@@ -14,23 +14,7 @@
         </select>
     </div>
     
-    <div class="border p-3 mb-3">
-        <h4 id="materia-details-title"></h4>
-        <div class="row">
-            <div class="col-md-3">
-                <p><strong>Horas clase:</strong> <span id="horas-clase"></span></p>
-            </div>
-            <div class="col-md-3">
-                <p><strong>Horas laboratorio:</strong> <span id="horas-laboratorio"></span></p>
-            </div>
-            <div class="col-md-3">
-                <p><strong>Créditos:</strong> <span id="creditos"></span></p>
-            </div>
-            <div class="col-md-3">
-                <p><strong>Laboratorio:</strong> <span id="laboratorio"></span></p>
-            </div>
-        </div>
-    </div>
+    
 
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -56,7 +40,6 @@
                     data-profesor-id="{{ $horario->RPE_profesor }}"
                     data-salon-id="{{ $horario->ID_salon }}"
                     data-grupo="{{ $horario->numero_grupo }}"
-                    data-cupo="{{ $horario->horarioCupo->first()->cupo ?? '' }}"
                     data-lun-ini="{{ $horario->lun_Ini }}"
                     data-lun-fin="{{ $horario->lun_Fin }}"
                     data-mar-ini="{{ $horario->mar_Ini }}"
@@ -77,16 +60,7 @@
                     <td>{{ $horario->vie_Ini }}-{{ $horario->vie_Fin }}</td>
                     <td>{{ $horario->sab_Ini }}-{{ $horario->sab_Fin }}</td>
                     <td>{{ $horario->salon ? $horario->salon->id_salon : 'Sin salón' }}</td>
-                    <td>
-                        @if($horario->horarioCupo->isNotEmpty())
-                            @foreach($horario->horarioCupo as $cupo)
-                                {{ $cupo->cupo }}
-                                @if (!$loop->last) | @endif <!-- Separador entre los cupos -->
-                            @endforeach
-                        @else
-                            No hay cupos disponibles
-                        @endif
-                    </td>
+                    <td>{{ $horario->salon ? $horario->salon->capacidad : 'Capacidad no disponible' }}</td>
                     <td>{{ $horario->profesor ? $horario->profesor->nombre_profesor . ' ' . $horario->profesor->primer_apellido . ' ' . ($horario->profesor->segundo_apellido ?? '') : 'Sin profesor' }}</td>
                     <td>
                         <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
@@ -99,7 +73,7 @@
     </div>
 
     <div class="d-flex gap-4 mt-3">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Agregar Nuevo</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Agregar Nuevo</button>
     </div>
 
 </div>
@@ -145,12 +119,6 @@
                         <input type="number" class="form-control" id="grupoInput" name="grupo" required>
                     </div>
 
-                    <!-- Cupo -->
-                    <div class="mb-3">
-                        <label for="cupoInput" class="form-label">Cupo</label>
-                        <input type="number" class="form-control" id="cupoInput" name="cupo" required>
-                    </div>
-
                     <!-- Horas para cada día -->
                     <div class="row">
                         @foreach(['lun', 'mar', 'mie', 'jue', 'vie', 'sab'] as $dia)
@@ -174,7 +142,8 @@
         </div>
     </div>
 </div>
-<!-- Agregar Nuevo Modal -->
+
+<!-- Add Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -194,12 +163,6 @@
                                 <option value="{{ $materia->clave_materia }}">{{ $materia->clave_materia }} - {{ $materia->nombre_materia }}</option>
                             @endforeach
                         </select>
-                    </div>
-
-                    <!-- RPE Registro (Manual Input) -->
-                    <div class="mb-3">
-                        <label for="RPERegistro" class="form-label">RPE Registro</label>
-                        <input type="number" class="form-control" id="RPERegistro" name="RPE_registro" required>
                     </div>
 
                     <!-- RPE Profesor selection -->
@@ -224,21 +187,10 @@
                         </select>
                     </div>
 
-                    <!-- Configuración Semestre (Manual Input) -->
-                    <div class="mb-3">
-                        <label for="ConfiguracionSemestre" class="form-label">Configuración Semestre</label>
-                        <input type="number" class="form-control" id="ConfiguracionSemestre" name="id_configuracionsemestre" required>
-                    </div>
-
                     <!-- Grupo -->
                     <div class="mb-3">
                         <label for="grupoInput" class="form-label">Grupo</label>
                         <input type="number" class="form-control" id="grupoInput" name="numero_grupo" required>
-                    </div>
-                    <!-- Tipo Materia -->
-                    <div class="mb-3">
-                        <label for="tipoMateria" class="form-label">Tipo de Materia</label>
-                        <input type="text" class="form-control" id="tipoMateria" name="tipo_materia" required>
                     </div>
 
                     <!-- Horas para cada día -->
@@ -265,7 +217,6 @@
     </div>
 </div>
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.getElementById('courseSelect').addEventListener('change', function() {
@@ -289,7 +240,6 @@
             document.getElementById('profesorSelect').value = row.getAttribute('data-profesor-id') || '';
             document.getElementById('salonSelect').value = row.getAttribute('data-salon-id') || '';
             document.getElementById('grupoInput').value = row.getAttribute('data-grupo') || '';
-            document.getElementById('cupoInput').value = row.getAttribute('data-cupo') || '';
 
             const days = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab'];
             days.forEach(day => {
