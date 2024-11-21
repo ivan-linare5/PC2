@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Salon;
+use Illuminate\Support\Facades\Log;
 
 class SalonController extends Controller
 {
     public function index()
     {
-        return view('salones'); 
+        return view('salones');
     }
 
     public function guardar(Request $request)
@@ -38,7 +39,6 @@ class SalonController extends Controller
 
     public function buscar(Request $request)
     {
-        
         // Verificar si se proporcionó el número de salón
         if ($request->filled('id_salon')) {
             // Realizar la búsqueda por número de salón
@@ -46,7 +46,6 @@ class SalonController extends Controller
 
             // Verificar si se encontró el salón
             if ($salon) {
-                //dd($request->All());
                 // Redirigir a la vista de edición con los datos del salón
                 return view('salon_search_and_edit', compact('salon'));
             } else {
@@ -59,28 +58,36 @@ class SalonController extends Controller
         }
     }
 
+    
     public function update(Request $request)
     {
         try {
-            // Buscar el salón por su número
-            $salon = Salon::where('id_salon', $request->id_salon)->firstOrFail();
-
-            // Actualizar los datos del salón
-            $salon->update([
-                'capacidad' => $request->capacidad,
-                'tipo' => $request->tipo,
-                'ubicacion' => $request->ubicacion,
-                'nivel' => $request->nivel,
-                'disponibilidad' => $request->disponibilidad
-            ]);
-
-            // Redirigir con un mensaje de éxito
+            
+    
+            Log::info('Actualizando salón con ID:', ['id_salon' => $request->id_salon]);
+    
+            // Actualizar directamente basado en id_salon
+            $affected = Salon::where('id_salon', $request->id_salon)
+                ->update($request->only([
+                    'capacidad',
+                    'tipo',
+                    'ubicacion',
+                    'nivel',
+                    'disponibilidad',
+                ]));
+    
+            if ($affected === 0) {
+                session()->flash('error', 'No se encontró un salón con el número proporcionado.');
+                return redirect()->back();
+            }
+    
             session()->flash('success', 'Datos del salón actualizados exitosamente.');
-            return redirect()->back(); 
-
+            return redirect()->back();
         } catch (\Exception $e) {
+            Log::error('Error al actualizar los datos del salón: ' . $e->getMessage());
             session()->flash('error', 'Error al actualizar los datos del salón: ' . $e->getMessage());
             return redirect()->back();
         }
     }
+
 }

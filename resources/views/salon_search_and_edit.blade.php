@@ -54,11 +54,12 @@
 
         <div class="mb-3">
             <label for="disponibilidad" class="form-label">Disponibilidad <span class="text-danger">*</span></label>
-            <select name="disponibilidad" class="form-control" id="disponibilidad" disabled>
-                <option value="Sí" {{ $salon->disponibilidad == 'Sí' ? 'selected' : '' }}>Sí</option>
-                <option value="No" {{ $salon->disponibilidad == 'No' ? 'selected' : '' }}>No</option>
+            <select name="disponibilidad" class="form-control" id="disponibilidad" {{ $modoLectura ?? false ? 'disabled' : '' }}>
+                <option value="1" {{ $salon->disponibilidad == 1 ? 'selected' : '' }}>Sí</option>
+                <option value="0" {{ $salon->disponibilidad == 0 ? 'selected' : '' }}>No</option>
             </select>
         </div>
+        
 
         <button type="button" class="btn btn-outline-success" id="busca" style="display:none;" onclick="mostrarConfirmacion()">Guardar</button>
         <button type="button" class="btn btn-outline-primary" onclick="activarInputs()" id="edit">Modificar</button>

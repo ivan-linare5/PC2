@@ -10,7 +10,7 @@ class Salon extends Model
     public $timestamps = false;
     use HasFactory;
 
-    protected $primaryKey = 'id_salon';
+    //protected $primaryKey = 'id_salon';
     protected $table = 'salon';
     //protected $primaryKey = 'id_salon'; sino no muestra el valor del id del salon correctamente
 
@@ -26,7 +26,7 @@ class Salon extends Model
     
     public function horarios()
     {
-        return $this->hasMany(Horario::class,  'id_salon'); 
+        return $this->hasMany(Horario::class,  'id_salon');
     }
 
 
