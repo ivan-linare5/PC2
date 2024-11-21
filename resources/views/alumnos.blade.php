@@ -78,9 +78,10 @@
                         <input type="text" name="clave_carrera" class="form-control" id="clave_carrera" placeholder="Clave Carrera" required>
                     </div>
                     <div class="mb-3">
-                        <label for="fecha_ingreso" class="form-label">Fecha Ingreso <span class="text-danger">*</span></label>
-                        <input type="text" name="fecha_ingreso" class="form-control" id="fecha_ingreso" required>
+                     <label for="fecha_ingreso" class="form-label">Fecha Ingreso <span class="text-danger">*</span></label>
+                    <input type="date" name="fecha_ingreso" class="form-control" id="fecha_ingreso" required>
                     </div>
+
 
                     <!-- Teléfonos de Emergencia -->
                     <div class="mb-3">

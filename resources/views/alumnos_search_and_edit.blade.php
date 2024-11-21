@@ -55,9 +55,10 @@
     </div>
 
     <div class="mb-3">
-        <label for="fecha_ingreso" class="form-label">Fecha_Ingreso <span class="text-danger">*</span></label>
-        <input type="text" name="fecha_ingreso" class="form-control" id="fecha_ingreso" value="{{ $alumno->fecha_ingreso }}" required disabled>
-    </div>
+    <label for="fecha_ingreso" class="form-label">Fecha de Ingreso <span class="text-danger">*</span></label>
+    <input type="date" name="fecha_ingreso" class="form-control" id="fecha_ingreso" value="{{ $alumno->fecha_ingreso }}" required>
+</div>
+
 
     <!-- Inputs para los teléfonos de emergencia -->
     <div id="telefonos-container">
