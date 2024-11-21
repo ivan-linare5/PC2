@@ -110,61 +110,44 @@ class AlumnoController extends Controller
     }
 
     public function update(Request $request)
-    {
-        
-        // Validar los datos recibidos
-        $request->validate([          
-            'nombre_alumno' => 'required|string|max:50',
-            'primer_apellido' => 'required|string|max:50',
-            'segundo_apellido' => 'nullable|string|max:50',
-            'correo_institucional' => 'required|email|max:50',
-            'clave_carrera' => 'required|string|max:25',
-            'fecha_ingreso' => 'required|digits:10',
-            'telefonos.*.numero' => 'required|digits:10', // Validar que cada teléfono tenga 10 dígitos
-            'telefonos.*.descripcion' => 'required|string|max:150'
+{
+    // Validar los datos recibidos
+    $request->validate([          
+        'nombre_alumno' => 'required|string|max:50',
+        'primer_apellido' => 'required|string|max:50',
+        'segundo_apellido' => 'nullable|string|max:50',
+        'correo_institucional' => 'required|email|max:50',
+        'clave_carrera' => 'required|string|max:25',
+        'fecha_ingreso' => 'required|date',
+    ]);
+
+    try {
+        // Buscar al alumno por su clave única
+        $alumno = Alumno::where('clave_Unica', $request->clave_Unica)->firstOrFail();
+        \Log::info('Alumno encontrado antes de actualizar:', $alumno->toArray());
+
+        // Actualizar los datos del alumno
+        $alumno->update([
+            'nombre_alumno' => $request->nombre_alumno,
+            'primer_apellido' => $request->primer_apellido,
+            'segundo_apellido' => $request->segundo_apellido,
+            'correo_institucional' => $request->correo_institucional,
+            'clave_carrera' => $request->clave_carrera,
+            'fecha_ingreso' => $request->fecha_ingreso,
         ]);
-        
-        try {
-            // Buscar al alumno por su clave
-            $alumno = Alumno::where('clave_Unica', $request->clave_Unica)->firstOrFail();
-            
-            $alumno->update([
-                'nombre_alumno' => $request->nombre_alumno,
-                'primer_apellido' => $request->primer_apellido,
-                'segundo_apellido' => $request->segundo_apellido,
-                'correo_institucional' => $request->correo_institucional,
-                'clave_carrera' => $request->clave_carrera,
-                'fecha_ingreso' => $request->fecha_ingreso,
-            ]);
 
-            // Actualizar los teléfonos 
-            foreach ($request->telefonos as $index => $telefono) {
-                // Busca el teléfono de emergencia correspondiente al RPE del profesor
-                $telefonoAlumno = TelefonoAlumno::where('clave_Unica', $alumno->Clave_Unica)->skip($index)->first();
-                
-                if ($telefonoAlumno) {
-                    $telefonoAlumno->update([
-                        'telefono' => $telefono['telefono'],
-                        'descripcion' => $telefono['descripcion'],
-                    ]);
-                } else {
-                    // Si no existe, puedes optar por crear uno nuevo si así lo deseas
-                    TelefonoAlumno::create([
-                        'clave_unica' => $alumno->clave_Alumno,
-                        'telefono' => $telefono['telefono'],
-                        'descripcion' => $telefono['descripcion'],
-                    ]);
-                }
-            }
+        \Log::info('Alumno después de actualizar:', $alumno->toArray());
 
-            session()->flash('success', 'Datos del alumno actualizados exitosamente.');
-            return redirect()->back(); 
+        session()->flash('success', 'Datos del alumno actualizados exitosamente.');
+        return redirect()->route('alumnos.index');
 
-        } catch (\Exception $e) {
-            session()->flash('error', 'Error al actualizar los datos del alumno: ' . $e->getMessage());
-            return redirect()->back();
-        }
+    } catch (\Exception $e) {
+        \Log::error('Error al actualizar alumno:', ['error' => $e->getMessage()]);
+        session()->flash('error', 'Error al actualizar los datos del alumno. Detalles: ' . $e->getMessage());
+        return redirect()->back();
     }
+}
+
 
         
 
