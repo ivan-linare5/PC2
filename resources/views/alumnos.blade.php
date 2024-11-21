@@ -74,9 +74,30 @@
                         <input type="email" name="correo_institucional" class="form-control" id="correo_institucional" placeholder="Correo Institucional" required>
                     </div>
                     <div class="mb-3">
-                        <label for="clave_carrera" class="form-label">Clave Carrera <span class="text-danger">*</span></label>
-                        <input type="text" name="clave_carrera" class="form-control" id="clave_carrera" placeholder="Clave Carrera" required>
-                    </div>
+                    <label for="clave_carrera" class="form-label">Clave Carrera <span class="text-danger">*</span></label>
+                    <select name="clave_carrera" class="form-select" id="clave_carrera" required>
+                        <option value="">-- Selecciona una carrera --</option>
+                        <option value="1">1 - Ingeniería Agroindustrial</option>
+                        <option value="2">2 - Ingeniería Ambiental</option>
+                        <option value="3">3 - Ingeniería Civil</option>
+                        <option value="4">4 - Ingeniería en Computación</option>
+                        <option value="5">5 - Ingeniería en Electricidad y Automatización</option>
+                        <option value="6">6 - Ingeniería en Geología</option>
+                        <option value="7">7 - Ingeniería en Sistemas Inteligentes</option>
+                        <option value="8">8 - Ingeniería en Topografía y Construcción</option>
+                        <option value="9">9 - Ingeniería Mecánica</option>
+                        <option value="10">10 - Ingeniería Mecánica Administrativa</option>
+                        <option value="11">11 - Ingeniería Mecánica Eléctrica</option>
+                        <option value="12">12 - Ingeniería Mecatrónica</option>
+                        <option value="13">13 - Ingeniería Metalúrgica y de Materiales</option>
+                        <option value="14">14 - Químico Farmacobiólogo</option>
+                        <option value="15">15 - Licenciatura en Química</option>
+                        <option value="16">16 - Ingeniería Química</option>
+                        <option value="17">17 - Ingeniería en Alimentos</option>
+                        <option value="18">18 - Ingeniería de Bioprocesos</option>
+                    </select>
+                </div>
+
                     <div class="mb-3">
                      <label for="fecha_ingreso" class="form-label">Fecha Ingreso <span class="text-danger">*</span></label>
                     <input type="date" name="fecha_ingreso" class="form-control" id="fecha_ingreso" required>
