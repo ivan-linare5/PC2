@@ -168,4 +168,4 @@ document.addEventListener("DOMContentLoaded", function () {
     buscarButton.disabled = true;
 });
 </script>
-@endsection|
+@endsection

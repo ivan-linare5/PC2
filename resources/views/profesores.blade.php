@@ -1,7 +1,6 @@
 @extends('layouts.Principal')
 
 @section('contenido')
-
 <!-- contenido a cargar -->
 <div class="container mt-2" id="caja">
     <h2 class="text-center">CATALOGO PROFESORES</h2>
@@ -151,4 +150,4 @@ document.addEventListener("DOMContentLoaded", function () {
     buscarButton.disabled = true;
 });
 </script>
-@endsection|
+@endsection

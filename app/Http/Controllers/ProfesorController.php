@@ -57,9 +57,17 @@ class ProfesorController extends Controller
             session()->flash('success', 'Profesor registrado exitosamente.');
             return redirect()->route('profesores.index');
 
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Errores relacionados con la base de datos (por ejemplo, conexión o restricciones únicas)
+            if ($e->getCode() === '23000') { // Código SQL para violación de restricción única
+                session()->flash('error', 'ERROR: El profesor ya está registrado en la base de datos.');
+            } else {
+                session()->flash('error', 'ERROR al conectarse a la base de datos o realizar la consulta. Inténtelo más tarde.');
+            }
+            return redirect()->route('profesores.index');
         } catch (\Exception $e) {
-            // Manejar errores
-            session()->flash('error', 'Error al registrar el profesor: ' . $e->getMessage());
+            // Otros errores generales
+            session()->flash('error', 'Ocurrió un error inesperado: ' . $e->getMessage());
             return redirect()->route('profesores.index');
         }
     }
@@ -175,12 +183,18 @@ class ProfesorController extends Controller
             session()->flash('success', 'Datos del profesor actualizados exitosamente.');
             return redirect()->back(); 
 
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Manejar errores relacionados con la base de datos
+            if ($e->getCode() === '23000') { // Violación de restricción única, por ejemplo, un campo duplicado
+                session()->flash('error', 'Ya existe un registro con los mismos datos. Verifique la información ingresada.');
+            } else {
+                session()->flash('error', 'Error al conectarse a la base de datos o realizar la consulta. Inténtelo más tarde.');
+            }
+            return redirect()->back();
         } catch (\Exception $e) {
-            session()->flash('error', 'Error al actualizar los datos del profesor: ' . $e->getMessage());
+            // Otros errores generales
+            session()->flash('error', 'Error inesperado al actualizar los datos del profesor: ' . $e->getMessage());
             return redirect()->back();
         }
-    }
-
-    
-
+    }  
 }

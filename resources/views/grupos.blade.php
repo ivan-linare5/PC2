@@ -18,7 +18,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Clave</th>
+                    <th>Clave/Gpo</th>
                     <th>Lunes</th>
                     <th>Martes</th>
                     <th>Miércoles</th>
@@ -51,7 +51,7 @@
                     data-vie-fin="{{ $horario->vie_Fin }}"
                     data-sab-ini="{{ $horario->sab_Ini }}"
                     data-sab-fin="{{ $horario->sab_Fin }}">
-                    <td>{{ $horario->clave_horario }}</td>
+                    <td>{{ $horario->clave_materia }}{{ $horario->numero_grupo }}</td>
                     <td>{{ $horario->lun_Ini }}-{{ $horario->lun_Fin }}</td>
                     <td>{{ $horario->mar_Ini }}-{{ $horario->mar_Fin }}</td>
                     <td>{{ $horario->mie_Ini }}-{{ $horario->mie_Fin }}</td>
