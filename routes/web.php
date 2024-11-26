@@ -9,6 +9,8 @@ use App\Http\Controllers\GrupoController;
 use App\Http\Controllers\ListaController;
 use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\FacultadController;
+use App\Http\Controllers\InscripcionesController;
+
 
 Route::get('/', function () {
     return view('layouts.Principal');
@@ -59,20 +61,18 @@ Route::get('/buscar-horario', [ListaController::class, 'buscarHorario'])->name('
 Route::get('/exportar-excel/{clave_horario}', [ListaController::class, 'exportarExcel'])->name('exportarExcel');
 
 
-//Estadistica
+//ESTADISTICA
 Route::get('/estadisticas', [EstadisticaController::class, 'index'])->name('estadisticas.index');
 
-//Facultades
+//FACULTADES
 Route::get('/facultades', [FacultadController::class, 'index'])->name('facultades.index');
 Route::post('/facultades/guardar', [FacultadController::class, 'guardar'])->name('facultades.guardar');
 Route::get('/facultades/buscar', [FacultadController::class, 'buscar'])->name('facultades.buscar');
 Route::get('/facultades/{id_clave}', [FacultadController::class, 'search'])->name('facultades.search');
 Route::post('/facultades/actualizar', [FacultadController::class, 'update'])->name('facultades.update');
-
 Route::get('/facultades/{id_clave}/edit', [FacultadController::class, 'edit'])->name('facultades.edit');
 
-
-
-
-
-
+//INSCRIPCIONES
+Route::get('/inscripcion', [InscripcionesController::class, 'index'])->name('inscripcion.index');
+Route::post('/inscripcion/semestre', [InscripcionesController::class, 'inscribirSemestre'])->name('inscripcion.semestre');
+Route::post('/inscripcion/alumno', [InscripcionesController::class, 'inscribirAlumno'])->name('inscripcion.alumno');

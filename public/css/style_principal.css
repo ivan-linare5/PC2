@@ -113,7 +113,7 @@
 }
 
 /* Estilo específico para el contenedor de la caja */
-#caja {
+#caja, #formAlumno, #formSemestre {
     border: 2px solid #0056b3; /* Borde azul oscuro */
     border-radius: 10px; /* Bordes redondeados */
     padding: 20px; /* Espacio interno aumentado */

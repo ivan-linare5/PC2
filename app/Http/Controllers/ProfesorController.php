@@ -102,8 +102,6 @@ class ProfesorController extends Controller
 
     public function search($rpe)
     {
-        
-
         // Realizar la búsqueda en la base de datos
         $profesor = Profesor::where('RPE_Profesor', $rpe)->first(); // Obtener solo el primer resultado
 

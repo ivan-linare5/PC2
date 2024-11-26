@@ -11,6 +11,10 @@ class Inscripcion extends Model
     protected $primaryKey = 'id_inscripcion';
     protected $table = 'inscripcion';
 
+     // Desactivar el uso de timestamps
+     public $timestamps = false;
+
+
     protected $fillable = [
         'id_inscripcion',
         'clave_unica',

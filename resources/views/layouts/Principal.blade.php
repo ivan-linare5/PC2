@@ -39,11 +39,11 @@
             <tbody>
                 <tr>
                     <td class="col1">RPE</td>
-                    <td class="col2"></td>
+                    <td class="col2">1234</td>
                 </tr>
                 <tr>
                     <td class="col1">NOMBRE</td>
-                    <td class="col2"></td>
+                    <td class="col2">PERSONAL ADMINISTRATIVO</td>
                 </tr>
                 <tr>
                     <td class="col1">FECHA</td>
@@ -78,6 +78,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('grupos.index') }}">Horario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('inscripcion.index') }}">Inscripcion</a>                    
                 </li>
             </ul>
             <!-- Menú para cerrar sesión -->
