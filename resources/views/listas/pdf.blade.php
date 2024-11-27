@@ -102,8 +102,8 @@
     }
         .imagen-logo{
         position: fixed;
-        top: 0px;
-        left:460;
+        top: 10px;
+        left:410;
         width: 100%;
         height: 100%;
         z-index: -1; 
@@ -144,12 +144,11 @@
 <div style="position: relative;left:30px;">
     <div style="position: relative;bottom:30px;">
         <h1 style="text-align: center; font-size:16px; font-family:Arial, Helvetica, sans-serif; font-weight:bold">UNIVERSIDAD AUTONOMA DE SAN LUIS POTOSÍ</h1>
-        <h1 style="text-align: center; font-size:16px;font-family:Arial, Helvetica, sans-serif; position: relative;bottom:10px;">FACULTAD DE INGENIERÍA</h1>
+        <h1 style="text-align: center; font-size:16px;font-family:Arial, Helvetica, sans-serif; position: relative;bottom:10px;">DEPARTAMENTO FÍSICO MATEMÁTICO</h1>
     </div>
 
     <div style="position: relative;bottom:40px;">
-    <p  style="text-align: center; font-size:10px;font-family:Arial, Helvetica, sans-serif; position: relative;bottom:20px;">Av. Manuel Nava 8, Zona Universitaria C.P. 78290, San Luis Potosí, S.L.P., México</p>
-    <p  style="text-align: center; font-size:10px;font-family:Arial, Helvetica, sans-serif; position: relative;bottom:30px;">Tels. (444) 826 23 30 al 39 Fax (444) 826 23 36 http://ingenieria.uaslp.mx</p>
+ <br><br>
     <h1 style="text-align: center; font-size:16px;font-family:Arial, Helvetica, sans-serif; position: relative;bottom:30px;">LISTADO PARA ASISTENCIA</h1>
     </div>
 
@@ -169,7 +168,7 @@
         <h2 class="inline" style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">CICLO:</h2>
         <p class="inline" style="position:relative;right:3px;font-size:11px; font-family:Arial, Helvetica, sans-serif;">{{ strtoupper($horario->configuracion->ciclo_escolar) }}</p>
         <h2 class="inline" style="margin-right: 0px;font-size:11px; font-family:Arial, Helvetica, sans-serif;">SALON:</h2>
-        <p class="inline" style="margin-right: 45px; font-size:11px; font-family:Arial, Helvetica, sans-serif;">{{ strtoupper($salon->id_salon) }}</p>
+        <p class="inline" style="margin-right: 34px; font-size:11px; font-family:Arial, Helvetica, sans-serif;">{{ strtoupper($salon->id_salon) }}</p>
         <h2 class="inline" style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">TIPO:</h2>
         <p class="inline" style="font-size:11px; font-family:Arial, Helvetica, sans-serif;position: relative;right:4px;">
             @if (strtoupper($horario->tipo_materia) === 'T')
@@ -206,7 +205,7 @@
         <img src="{{ public_path('img/Fondo.jpg') }}" alt="Descripción de la imagen" class="img-fluid" width="200" height="1100" >
     </div>
     <div class="imagen-logo">
-        <img src="{{ public_path('img/facultad.jpg') }}" alt="Descripción de la imagen" class="img-fluid" width="90" height="auto" >
+        <img src="{{ public_path('img/DFM Logo.png') }}" alt="Descripción de la imagen" class="img-fluid" width="220" height="auto" >
     </div>
 
 

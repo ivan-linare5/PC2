@@ -58,27 +58,57 @@ class ListaController extends Controller
     }
 
     public function buscarHorario(Request $request)
-    {
-        
-        $request->validate([
-           'query' => 'required|string|max:255',
-        ]);
+{
+    // Validación del input con mensaje personalizado para formato inválido
+    $request->validate([
+        'query' => [
+            'required',
+            'string',
+            'max:255',
+            'regex:/^\d+\s+\d+$/', // Formato esperado: "número número" con un solo espacio
+        ],
+    ], [
+        'query.regex' => 'El formato ingresado no es válido. Use el formato: "clave_materia numero_grupo" (Ejemplo: 48 18).',
+    ]);
 
-        $clave_horario = $request->input('query');
+    try {
+        // Separar clave_materia y numero_grupo
+        $input = $request->input('query');
+        [$clave_materia, $numero_grupo] = explode(' ', $input);
 
-    
+        // Buscar el horario
         $horario = Horario::with(['profesor', 'materia', 'salon', 'inscripcion.alumnos'])
-            ->where('clave_horario', $clave_horario)
-            ->firstOrFail(); 
+            ->where('clave_materia', $clave_materia)
+            ->where('numero_grupo', $numero_grupo)
+            ->firstOrFail();
 
+        // Obtener detalles del salón
         $salon = DB::table('horarios')
             ->join('salon', 'horarios.ID_salon', '=', 'salon.id_salon')
-            ->where('horarios.clave_horario', $clave_horario)
-            ->select('horarios.*', 'salon.id_salon', 'salon.capacidad','salon.tipo','salon.ubicacion','salon.nivel','salon.disponibilidad',) 
-            ->first(); 
+            ->where('horarios.clave_materia', $clave_materia)
+            ->where('horarios.numero_grupo', $numero_grupo)
+            ->select(
+                'horarios.*', 
+                'salon.id_salon', 
+                'salon.capacidad',
+                'salon.tipo',
+                'salon.ubicacion',
+                'salon.nivel',
+                'salon.disponibilidad'
+            )
+            ->first();
 
-        return view('listas.asistencia', compact('horario','salon'));
+        return view('listas.asistencia', compact('horario', 'salon'));
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        // Si no se encuentra el grupo
+        return redirect()->back()->with('error', 'El grupo no existe. Por favor, verifica los datos ingresados.');
+    } catch (\Exception $e) {
+        // Otros errores
+        return redirect()->back()->with('error', 'Ocurrió un error inesperado. Por favor, intente nuevamente.');
     }
+}
+
+    
 
     
     public function exportarExcel($clave_horario)

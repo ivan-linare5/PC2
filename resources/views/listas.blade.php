@@ -2,9 +2,26 @@
 
 @section('contenido')
 <form id="search-form" class="d-flex" action="{{ route('buscar.horario') }}" method="GET">
-    <input type="text" id="query" name="query" placeholder="Clave del grupo" class="form-control me-2" required>
+    <input type="text" id="query" name="query" placeholder="Ejemplo: 48 18" class="form-control me-2" required>
     <button type="submit" class="btn btn-primary">Buscar</button>
 </form>
+
+
+@if ($errors->has('query'))
+    <div class="alert alert-danger mt-2">
+        {{ $errors->first('query') }}
+    </div>
+@endif
+
+
+@if (session('error'))
+    <div class="alert alert-danger mt-2">
+        {{ session('error') }}
+    </div>
+@endif
+
+
+
 <br>
 <div class="btn-group" role="group">
     <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
