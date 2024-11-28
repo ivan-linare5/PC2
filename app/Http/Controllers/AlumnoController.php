@@ -147,59 +147,53 @@ class AlumnoController extends Controller
         return redirect()->back();
     }
 }
+public function registrarNuevosAlumnos(Request $request)
+    {
+        $endpoint = 'https://servicios.ing.uaslp.mx/ws_dfm/RecibirNuevosAlumnos.php';
+        $payload = json_encode([
+            'key' => '1',
+            'ciclo' => $request->input('ciclo'),
+            'semestre' => $request->input('semestre'),
+        ]);
 
- // **Registrar nuevos alumnos y almacenarlos en la base de datos**
- public function registrarNuevosAlumnos(Request $request)
-{
-    $endpoint = 'https://servicios.ing.uaslp.mx/ws_dfm/RecibirNuevosAlumnos.php';
-    $payload = json_encode([
-        'key' => '1',
-        'ciclo' => $request->input('ciclo'),
-        'semestre' => $request->input('semestre'),
-    ]);
+        $response = $this->sendPostRequest($endpoint, $payload);
 
-    $response = $this->sendPostRequest($endpoint, $payload);
+        $data = json_decode($response, true);
 
-    $data = json_decode($response, true);
-
-    // Verificar si la respuesta contiene los datos correctos
-    if (isset($data['correcto']) && $data['correcto'] == true) {
-        // Verificar si existen los datos de nuevos alumnos
-        if (isset($data['datos']) && is_array($data['datos'])) {
-            foreach ($data['datos'] as $nuevoAlumno) {
-                // Verificar si el alumno ya existe en la base de datos
-                $alumno = Alumno::where('clave_Unica', $nuevoAlumno['clave_unica'])->first();
-
-                if ($alumno) {
-                    // Actualizar los datos del alumno
-                    $alumno->update([
-                        'nombre_alumno' => $nuevoAlumno['nombre'],
-                        'primer_apellido' => $nuevoAlumno['primer_apellido'],
-                        'segundo_apellido' => $nuevoAlumno['segundo_apellido'] ?? null,
-                        'correo_institucional' => $nuevoAlumno['correo'] ?? null,
-                        'clave_carrera' => $nuevoAlumno['clave_carrera'] ?? null,
-                        'fecha_ingreso' => $nuevoAlumno['fecha_ingreso'] ?? now(),
-                    ]);
-                } else {
-                    // Generar un error si el alumno no existe
-                    return redirect()->back()->with('error', 'El alumno con clave única ' . $nuevoAlumno['clave_unica'] . ' no existe en la base de datos.');
+        // Verificar si la respuesta contiene los datos correctos
+        if (isset($data['correcto']) && $data['correcto'] == true) {
+            // Verificar si existen los datos de nuevos alumnos
+            if (isset($data['datos']) && is_array($data['datos'])) {
+                foreach ($data['datos'] as $nuevoAlumno) {
+                    // Intentar crear un nuevo registro
+                    try {
+                        Alumno::create([
+                            'clave_Unica' => $nuevoAlumno['clave_unica'],
+                            'nombre_alumno' => $nuevoAlumno['nombre'],
+                            'primer_apellido' => $nuevoAlumno['primer_apellido'],
+                            'segundo_apellido' => $nuevoAlumno['segundo_apellido'] ?? null,
+                            'correo_institucional' => $nuevoAlumno['correo'] ?? null,
+                            'clave_carrera' => $nuevoAlumno['clave_carrera'] ?? null,
+                            'fecha_ingreso' => $nuevoAlumno['fecha_ingreso'] ?? now(),
+                        ]);
+                    } catch (\Exception $e) {
+                        // Generar un error si ocurre un conflicto al guardar (por ejemplo, clave única duplicada)
+                        return redirect()->back()->with('error', 'El alumno con clave única ' . $nuevoAlumno['clave_unica'] . ' ya existe en la base de datos.');
+                    }
                 }
+
+                return redirect()->back()->with('success', 'Nuevos alumnos registrados correctamente.');
+            } else {
+                // Si no se reciben datos de nuevos alumnos
+                return redirect()->back()->with('error', 'No se encontraron datos de nuevos alumnos válidos.');
             }
-
-            return redirect()->back()->with('success', 'Nuevos alumnos actualizados correctamente.');
         } else {
-            // Si no se reciben datos de nuevos alumnos
-            return redirect()->back()->with('error', 'No se encontraron datos de nuevos alumnos válidos.');
+            // Si la clave 'correcto' no es verdadera
+            return redirect()->back()->with('error', 'Error en la respuesta del servidor.');
         }
-    } else {
-        // Si la clave 'correcto' no es verdadera
-        return redirect()->back()->with('error', 'Error en la respuesta del servidor.');
     }
-}
 
-
- // **Consultar alumno y almacenarlo en la base de datos si no existe**
- public function consultarAlumno(Request $request)
+    public function consultarAlumno(Request $request)
 {
     $endpoint = 'https://servicios.ing.uaslp.mx/ws_dfm/RecibirAlumno.php';
     $payload = json_encode([
@@ -209,20 +203,19 @@ class AlumnoController extends Controller
 
     $response = $this->sendPostRequest($endpoint, $payload);
 
+    // Registrar la respuesta en los logs
+    \Log::info('Respuesta del API (consultarAlumno):', ['response' => $response]);
+
     $data = json_decode($response, true);
 
     // Verificar si la respuesta contiene los datos correctos
     if (isset($data['correcto']) && $data['correcto'] == true) {
-        // Verificar si existen los datos del alumno
         if (isset($data['datos']) && is_array($data['datos'])) {
             $alumnoDatos = $data['datos'];
 
-            // Verificar si el alumno ya existe en la base de datos
-            $alumno = Alumno::where('clave_Unica', $alumnoDatos['clave_unica'])->first();
-
-            if ($alumno) {
-                // Actualizar los datos del alumno
-                $alumno->update([
+            try {
+                Alumno::create([
+                    'clave_Unica' => $alumnoDatos['clave_unica'],
                     'nombre_alumno' => $alumnoDatos['nombre'],
                     'primer_apellido' => $alumnoDatos['primer_apellido'],
                     'segundo_apellido' => $alumnoDatos['segundo_apellido'] ?? null,
@@ -231,46 +224,42 @@ class AlumnoController extends Controller
                     'fecha_ingreso' => $alumnoDatos['fecha_ingreso'] ?? now(),
                 ]);
 
-                return redirect()->back()->with('success', 'Datos del alumno actualizados correctamente.');
-            } else {
-                // Generar un error si el alumno no existe
-                return redirect()->back()->with('error', 'El alumno con clave única ' . $alumnoDatos['clave_unica'] . ' no existe en la base de datos.');
+                return redirect()->back()->with('success', 'Datos del alumno consultado almacenados correctamente.');
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'El alumno con clave única ' . $alumnoDatos['clave_unica'] . ' ya existe en la base de datos.');
             }
         } else {
-            // Si no se encuentran datos del alumno
             return redirect()->back()->with('error', 'No se encontraron datos para el alumno solicitado.');
         }
     } else {
-        // Si la clave 'correcto' no es verdadera
         return redirect()->back()->with('error', 'Error en la respuesta del servidor.');
     }
 }
 
- 
- private function sendPostRequest($endpoint, $payload)
- {
-     $ch = curl_init($endpoint);
 
-     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-     curl_setopt($ch, CURLOPT_POST, true);
-     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-     curl_setopt($ch, CURLOPT_HTTPHEADER, [
-         'Content-Type: application/json',
-         'Content-Length: ' . strlen($payload)
-     ]);
-     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    private function sendPostRequest($endpoint, $payload)
+    {
+        $ch = curl_init($endpoint);
 
-     $response = curl_exec($ch);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($payload)
+        ]);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-     if (curl_errno($ch)) {
-         $response = 'Error: ' . curl_error($ch);
-     }
+        $response = curl_exec($ch);
 
-     curl_close($ch);
+        if (curl_errno($ch)) {
+            $response = 'Error: ' . curl_error($ch);
+        }
 
-     return $response;
- }
+        curl_close($ch);
 
+        return $response;
+    }
 
         
 
