@@ -27,7 +27,7 @@
         @method('GET')
         <div class="mb-4">
             <label for="clave_materia" class="form-label">Clave de la Materia</label>
-            <input type="text" class="form-control" name="clave_materia" id="clave_materia" placeholder="Clave de la Materia">
+            <input type="text" class="form-control" name="clave_materia" id="clave_materia" placeholder="Clave de la Materia" maxlength="11">
         </div>
         <div class="mb-4">
             <label for="nombre_materia" class="form-label">Nombre de la Materia</label>
@@ -50,12 +50,12 @@
                         @method('POST')
 
                         <div class="mb-3">
-                            <label for="clave_materia" class="form-label">Clave de la Materia <span class="text-danger">*</span></label>
-                            <input type="text" name="clave_materia" class="form-control" id="clave_materia" placeholder="Clave de la Materia" required>
+                            <label for="modal_clave_materia" class="form-label">Clave de la Materia <span class="text-danger">*</span></label>
+                            <input type="text" name="clave_materia" class="form-control" id="modal_clave_materia" placeholder="Clave de la Materia" maxlength="11" required>
                         </div>
                         <div class="mb-3">
-                            <label for="nombre_materia" class="form-label">Nombre de la Materia <span class="text-danger">*</span></label>
-                            <input type="text" name="nombre_materia" class="form-control" id="nombre_materia" placeholder="Nombre de la Materia" required>
+                            <label for="modal_nombre_materia" class="form-label">Nombre de la Materia <span class="text-danger">*</span></label>
+                            <input type="text" name="nombre_materia" class="form-control" id="modal_nombre_materia" placeholder="Nombre de la Materia" required>
                         </div>
                         <div class="mb-3">
                             <label for="lleva_laboratorio" class="form-label">Lleva Laboratorio <span class="text-danger">*</span></label>
@@ -106,8 +106,49 @@ document.addEventListener("DOMContentLoaded", function () {
     claveMateriaInput.addEventListener("input", checkInputs);
     nombreMateriaInput.addEventListener("input", checkInputs);
 
+    // Bloquear uno de los inputs si el otro tiene contenido
+    claveMateriaInput.addEventListener("input", function () {
+        if (claveMateriaInput.value.trim() !== "") {
+            nombreMateriaInput.disabled = true;
+        } else {
+            nombreMateriaInput.disabled = false;
+        }
+    });
+
+    nombreMateriaInput.addEventListener("input", function () {
+        if (nombreMateriaInput.value.trim() !== "") {
+            claveMateriaInput.disabled = true;
+        } else {
+            claveMateriaInput.disabled = false;
+        }
+    });
+
     // Inicialmente, deshabilitar el botón Buscar
     buscarButton.disabled = true;
+    
+    // Validar solo números en Clave de Materia y un tamaño máximo de 11 caracteres
+    claveMateriaInput.addEventListener('input', function (e) {
+        let value = e.target.value;
+        e.target.value = value.replace(/[^0-9]/g, '').substring(0, 11);
+    });
+
+    // Validar solo números en Clave de Materia dentro del modal y un tamaño máximo de 11 caracteres
+    const modalClaveMateriaInput = document.getElementById('modal_clave_materia');
+    modalClaveMateriaInput.addEventListener('input', function (e) {
+        let value = e.target.value;
+        e.target.value = value.replace(/[^0-9]/g, '').substring(0, 11);
+    });
+
+    // Validar que el nombre de la materia comience con una letra en el modal
+    const modalNombreMateriaInput = document.getElementById('modal_nombre_materia');
+    modalNombreMateriaInput.addEventListener('input', function (e) {
+        let value = e.target.value;
+        if (!/^[A-Za-z]/.test(value)) {
+            e.target.setCustomValidity("El nombre de la materia debe comenzar con una letra.");
+        } else {
+            e.target.setCustomValidity("");
+        }
+    });
 });
 </script>
 

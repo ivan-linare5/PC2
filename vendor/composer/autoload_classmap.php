@@ -11,6 +11,7 @@ return array(
     'App\\Http\\Controllers\\EstadisticaController' => $baseDir . '/app/Http/Controllers/EstadisticaController.php',
     'App\\Http\\Controllers\\FacultadController' => $baseDir . '/app/Http/Controllers/FacultadController.php',
     'App\\Http\\Controllers\\GrupoController' => $baseDir . '/app/Http/Controllers/GrupoController.php',
+    'App\\Http\\Controllers\\InscripcionesController' => $baseDir . '/app/Http/Controllers/InscripcionesController.php',
     'App\\Http\\Controllers\\ListaController' => $baseDir . '/app/Http/Controllers/ListaController.php',
     'App\\Http\\Controllers\\MateriaController' => $baseDir . '/app/Http/Controllers/MateriaController.php',
     'App\\Http\\Controllers\\ProfesorController' => $baseDir . '/app/Http/Controllers/ProfesorController.php',
