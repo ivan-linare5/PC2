@@ -94,8 +94,8 @@
 
         .imagen-fondo {
         position: fixed;
-        bottom: 55px;
-        right: 34;
+        bottom: 0px;
+        right: 30px;
         width: 100%;
         height: 100%;
         z-index: -1; 
@@ -141,7 +141,7 @@
 
 <body>
     
-<div style="position: relative;left:30px;">
+<div style="position: relative;left:0px;">
     <div style="position: relative;bottom:30px;">
         <h1 style="text-align: center; font-size:16px; font-family:Arial, Helvetica, sans-serif; font-weight:bold">UNIVERSIDAD AUTONOMA DE SAN LUIS POTOSÍ</h1>
         <h1 style="text-align: center; font-size:16px;font-family:Arial, Helvetica, sans-serif; position: relative;bottom:10px;">DEPARTAMENTO FÍSICO MATEMÁTICO</h1>
@@ -152,23 +152,31 @@
     <h1 style="text-align: center; font-size:16px;font-family:Arial, Helvetica, sans-serif; position: relative;bottom:30px;">LISTADO PARA ASISTENCIA</h1>
     </div>
 
+ <div style="position: relative;left:30px;">
     <div class="flex-container">
+        <h2 class="inline" style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">CLAVE MATERIA:</h2>
+    <p class="inline"  style="position:relative;right:3px; margin-right: 10px; font-size:11px; font-family:Arial, Helvetica, sans-serif;">{{ $horario->materia->clave_materia }}</p>
     <h2 class="inline" style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">GRUPO:</h2>
     <p class="inline"  style="position:relative;right:3px; margin-right: 10px; font-size:11px; font-family:Arial, Helvetica, sans-serif;">{{ $horario->numero_grupo }}</p>
     <h2 class="inline" style="margin-right: 0px; font-size:11px; font-family:Arial, Helvetica, sans-serif;">MATERIA:</h2>
-    <p class="inline"  style="font-size:11px; font-family:Arial, Helvetica, sans-serif;"> {{ strtoupper($horario->materia->nombre_materia) }}</p>
+    <p class="inline"  style="font-size:11px; font-family:Arial, Helvetica, sans-serif;"> {{ mb_strtoupper($horario->materia->nombre_materia) }}</p>
     </div>
 
     <div class="flex-container">
         <h2 class="inline" style="margin-right: 0px;font-size:11px; font-family:Arial, Helvetica, sans-serif;">PROFESOR:</h2>
-        <p class="inline"  style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">{{ strtoupper($horario->profesor->primer_apellido) }} {{ strtoupper($horario->profesor->segundo_apellido) }} {{ strtoupper($horario->profesor->nombre_profesor) }}</p>
+        <p class="inline"  style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">{{ mb_strtoupper($horario->profesor->primer_apellido) }} {{ mb_strtoupper($horario->profesor->segundo_apellido) }} {{ mb_strtoupper($horario->profesor->nombre_profesor) }}</p>
     </div>
 
     <div class="flex-container">
-        <h2 class="inline" style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">CICLO:</h2>
-        <p class="inline" style="position:relative;right:3px;font-size:11px; font-family:Arial, Helvetica, sans-serif;">{{ strtoupper($horario->configuracion->ciclo_escolar) }}</p>
+        <h2 class="inline" style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">SEMESTRE:</h2>
+        <p class="inline" style="margin-right: 10px;position:relative;right:3px;font-size:11px; font-family:Arial, Helvetica, sans-serif;">
+            {{ strtoupper($horario->configuracion->ciclo_escolar) }}/@if(($horario->configuracion->tipo_semestre) == 'S1')I
+            @elseif (($horario->configuracion->tipo_semestre) == 'S2')II
+            @endif
+        </p>
+
         <h2 class="inline" style="margin-right: 0px;font-size:11px; font-family:Arial, Helvetica, sans-serif;">SALON:</h2>
-        <p class="inline" style="margin-right: 34px; font-size:11px; font-family:Arial, Helvetica, sans-serif;">{{ strtoupper($salon->id_salon) }}</p>
+        <p class="inline" style="margin-right: 20px; font-size:11px; font-family:Arial, Helvetica, sans-serif;">{{ strtoupper($salon->id_salon) }}</p>
         <h2 class="inline" style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">TIPO:</h2>
         <p class="inline" style="font-size:11px; font-family:Arial, Helvetica, sans-serif;position: relative;right:4px;">
             @if (strtoupper($horario->tipo_materia) === 'T')
@@ -182,7 +190,7 @@
     <div class="flex-container2">
         <h2 class="inline" style="margin-right: 93px;font-size:11px; font-family:Arial, Helvetica, sans-serif; position: relative;right:30px;">FECHA</h2>
         <h2 class="inline" style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">MATERIA CON LABORATORIO:</h2>
-        <p class="inline" style="margin-right: 18px;font-size:11px; font-family:Arial, Helvetica, sans-serif;position: relative;right:4px;">
+        <p class="inline" style="margin-right: 23px;font-size:11px; font-family:Arial, Helvetica, sans-serif;position: relative;right:4px;">
             @if (strtoupper($horario->materia->lleva_laboratorio) === '0')
             SI
         @elseif (strtoupper($horario->materia->lleva_laboratorio) === '1')
@@ -194,15 +202,15 @@
         <p class="inline" style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">4</p>
     </div>
 
-</div>
+    </div>
 
     <div class="flex-container3">
         <p style="font-size:11px; font-family:Arial, Helvetica, sans-serif;">{{ $fechaHoraActual }}</p>
     </div>
-    
+</div>
 
     <div class="imagen-fondo">                         <!--1100-->
-        <img src="{{ public_path('img/Fondo.jpg') }}" alt="Descripción de la imagen" class="img-fluid" width="200" height="1100" >
+        <img src="{{ public_path('img/uaslp.png') }}" alt="Descripción de la imagen" class="img-fluid" width="160" height="auto" >
     </div>
     <div class="imagen-logo">
         <img src="{{ public_path('img/DFM Logo.png') }}" alt="Descripción de la imagen" class="img-fluid" width="220" height="auto" >
@@ -283,7 +291,7 @@
             <tr>
                 <td style="text-align: center">{{$cont}}</td>
                 <td style="text-align: center">0{{ $alumno->clave_Unica }}</td>
-                <td class="columna-con-fondo">{{ strtoupper($alumno->primer_apellido) }} {{ strtoupper($alumno->segundo_apellido) }} {{ strtoupper($alumno->nombre_alumno) }}</td>
+                <td class="columna-con-fondo">{{ mb_strtoupper($alumno->primer_apellido) }} {{ mb_strtoupper($alumno->segundo_apellido) }} {{ mb_strtoupper($alumno->nombre_alumno) }}</td>
                 <td class="border-numeros columna-con-fondo"></td>
                 <td class="border-numeros columna-con-fondo"></td>
                 <td class="border-numeros columna-con-fondo"></td>
