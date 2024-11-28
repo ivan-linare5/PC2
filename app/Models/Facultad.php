@@ -13,6 +13,5 @@ class Facultad extends Model
     public $timestamps = false;
     protected $primaryKey = 'clave_facultad';
     protected $fillable = ['clave_facultad', 'nombre_facultad'];
-
+    
 }
-
