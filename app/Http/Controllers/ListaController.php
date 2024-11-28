@@ -135,21 +135,26 @@ class ListaController extends Controller
          // Encabezado para el profesor
         $row = 7; 
         $profesor = $horario->profesor; 
-        $sheet->setCellValue('I' . $row, strtoupper($profesor->primer_apellido) . ' ' . strtoupper($profesor->segundo_apellido). ' ' . strtoupper($profesor->nombre_profesor));
+        $sheet->setCellValue('I' . $row, mb_strtoupper($profesor->primer_apellido) . ' ' . mb_strtoupper($profesor->segundo_apellido). ' ' . mb_strtoupper($profesor->nombre_profesor));
 
+        //Encabezado clave materia
+        $row = 6;
+        $materia = $horario->materia; 
+        $sheet->setCellValue('J' . $row, ($materia->clave_materia));
+        
         // Encabezado para grupo
         $row = 6; 
-        $sheet->setCellValue('H' . $row, $horario->numero_grupo);
+        $sheet->setCellValue('Q' . $row, $horario->numero_grupo);
 
         // Encabezado para Materia
         $row = 6; 
         $materia = $horario->materia; 
-        $sheet->setCellValue('P' . $row, strtoupper($materia->nombre_materia));
+        $sheet->setCellValue('W' . $row, mb_strtoupper($materia->nombre_materia));
 
         // Encabezado para Materia
         $row = 8; 
         $configuracion = $horario->configuracion; 
-        $sheet->setCellValue('H' . $row, $configuracion->ciclo_escolar);
+        $sheet->setCellValue('W' . $row, $configuracion->ciclo_escolar);
 
        // Encabezado para Tipo
         $row = 8;
@@ -183,7 +188,7 @@ class ListaController extends Controller
         $num = 1;
         $cero=0;
         foreach ($asistencia as $alumno) {
-            $sheet->setCellValue('D' . $row, strtoupper($alumno->primer_apellido).' '.strtoupper($alumno->segundo_apellido).' '.strtoupper($alumno->nombre_alumno)); 
+            $sheet->setCellValue('D' . $row, mb_strtoupper($alumno->primer_apellido).' '.mb_strtoupper($alumno->segundo_apellido).' '.mb_strtoupper($alumno->nombre_alumno)); 
             $sheet->setCellValue('C' . $row, $cero.$alumno->clave_Unica); 
             $sheet->setCellValue('B' . $row, $num); 
             $row++;

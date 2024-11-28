@@ -30,7 +30,7 @@ class Alumno extends Model
         'segundo_apellido',
         'correo_institucional',
         'clave_carrera',
-        'fecha_ingreso'
+        'generacion'
     ];
 
     public function telefonosAlumno()

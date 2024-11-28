@@ -27,7 +27,8 @@ class InscripcionesController extends Controller
 
         // Enviar la solicitud POST
         $response = $this->sendPostRequest($endpoint, $payload);
-        
+        //dd($response);
+
         // Decodificar la respuesta JSON
         $data = json_decode($response, true);
 
@@ -86,7 +87,7 @@ class InscripcionesController extends Controller
         $payload = $request->input('payload');
 
         $response = $this->sendPostRequest($endpoint, $payload);
-
+        //dd($response);
         // Decodificar la respuesta JSON
         $data = json_decode($response, true);
         

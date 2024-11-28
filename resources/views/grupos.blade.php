@@ -64,6 +64,8 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>Ciclo</th>
+                    <th>Semestre</th>
                     <th>Clave/Gpo</th>
                     <th>Lunes</th>
                     <th>Martes</th>
@@ -79,7 +81,9 @@
             </thead>
             <tbody id="grupos-table-body">
                 @foreach($horarios as $horario)
-                <tr data-materia="{{ $horario->clave_materia }}"
+                <tr data-ciclo="{{ $horario->configuracion->ciclo_escolar }}"
+                    data-ciclo="{{ $horario->configuracion->tipo_semestre }}"
+                    data-materia="{{ $horario->clave_materia }}"
                     data-horario-id="{{ $horario->clave_horario }}"
                     data-profesor-id="{{ $horario->RPE_profesor }}"
                     data-salon-id="{{ $horario->ID_salon }}"
@@ -97,6 +101,8 @@
                     data-vie-fin="{{ $horario->vie_Fin }}"
                     data-sab-ini="{{ $horario->sab_Ini }}"
                     data-sab-fin="{{ $horario->sab_Fin }}">
+                    <td>{{ $horario->configuracion->ciclo_escolar }}</td>
+                    <td>{{ $horario->configuracion->tipo_semestre }}</td>
                     <td>{{ $horario->clave_materia }}{{ $horario->numero_grupo }}</td>
                     <td>{{ $horario->lun_Ini }}-{{ $horario->lun_Fin }}</td>
                     <td>{{ $horario->mar_Ini }}-{{ $horario->mar_Fin }}</td>
@@ -133,6 +139,7 @@
                 @csrf
                 <input type="hidden" name="horario_id" id="horarioId">
                 <div class="modal-body">
+              
                     <div class="mb-3">
                         <label for="profesorSelect" class="form-label">Seleccionar Profesor</label>
                         <select class="form-select" id="profesorSelect" name="profesor_id">
