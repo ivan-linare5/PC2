@@ -44,19 +44,17 @@
     @foreach ($datos as $dato)
         <div class="mb-3">
             <label for="clave_{{$dato->facultad->nombre_facultad}}" class="form-label">Clave {{$dato->facultad->nombre_facultad}} </label>
-            <input type="text" name="dato[{{$dato->clave_facultad}}][clave]" class="form-control" id="clave_{{$dato->facultad->nombre_facultad}}" value="{{ $dato->clave_materia_facultad }}" required disabled>
+            <input type="text" name="dato[{{$dato->clave_facultad}}][clave]" class="form-control" id="clave_{{$dato->facultad->nombre_facultad}}" value="{{ $dato->clave_materia_facultad }}" readonly disabled>
         </div>
 
         <div class="mb-3">
             <label for="creditos_{{$dato->facultad->nombre_facultad}}" class="form-label">Créditos {{$dato->facultad->nombre_facultad}} </label>
-            <input type="number" name="dato[{{$dato->clave_facultad}}][creditos]" class="form-control" id="creditos_{{$dato->facultad->nombre_facultad}}" value="{{ $dato->creditos }}" required disabled>
+            <input type="number" name="dato[{{$dato->clave_facultad}}][creditos]" class="form-control" id="creditos_{{$dato->facultad->nombre_facultad}}" value="{{ $dato->creditos }}" readonly disabled>
         </div>
 
         <!-- Input oculto para la clave de facultad, incluido en el arreglo de facultades -->
         <input type="hidden" name="dato[{{$dato->clave_facultad}}][clave_facultad]" value="{{$dato->clave_facultad}}">
     @endforeach
-
-   
 
     <button type="button" class="btn btn-outline-success" id="busca" style="display:none;" onclick="mostrarConfirmacion()">Guardar</button>
     <button type="button" class="btn btn-outline-primary" onclick="activarInputs()" id="edit">Modificar</button>
@@ -87,19 +85,9 @@
 
 <script>
     function activarInputs() {
-        // Obtener todos los inputs dentro del formulario
-        const inputs = document.querySelectorAll('#datos input, #datos select');
-        
-        // Habilitar todos los inputs
-        inputs.forEach(input => {
-            input.disabled = false;
-        });
-
-        // Mostrar los campos de facultades
-        /*@foreach ($facultades as $facultad)
-            document.getElementById('facultad_{{$facultad->clave_facultad}}').style.display = 'block';
-            document.getElementById('creditos_{{$facultad->clave_facultad}}').style.display = 'block';
-        @endforeach*/
+        // Habilitar los campos nombre y lleva laboratorio
+        document.getElementById('nombre_materia').disabled = false;
+        document.getElementById('lleva_laboratorio').disabled = false;
 
         // Ocultar el botón Modificar
         document.getElementById('edit').style.display = 'none';

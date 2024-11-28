@@ -39,7 +39,10 @@
 
         <div class="mb-3">
             <label for="tipo" class="form-label">Tipo de Salón <span class="text-danger">*</span></label>
-            <input type="text" name="tipo" class="form-control" id="tipo" value="{{ $salon->tipo }}" required disabled>
+            <select name="tipo" class="form-control" id="tipo" required disabled>
+                <option value="Salón" {{ $salon->tipo == 'Salón' ? 'selected' : '' }}>Salón</option>
+                <option value="Laboratorio" {{ $salon->tipo == 'Laboratorio' ? 'selected' : '' }}>Laboratorio</option>
+            </select>
         </div>
 
         <div class="mb-3">
@@ -49,22 +52,24 @@
 
         <div class="mb-3">
             <label for="nivel" class="form-label">Nivel <span class="text-danger">*</span></label>
-            <input type="text" name="nivel" class="form-control" id="nivel" value="{{ $salon->nivel }}" required disabled>
+            <select name="nivel" class="form-control" id="nivel" required disabled>
+                <option value="PB" {{ $salon->nivel == 'PB' ? 'selected' : '' }}>PB</option>
+                <option value="Piso 1" {{ $salon->nivel == 'Piso 1' ? 'selected' : '' }}>Piso 1</option>
+                <option value="Piso 2" {{ $salon->nivel == 'Piso 2' ? 'selected' : '' }}>Piso 2</option>
+            </select>
         </div>
 
         <div class="mb-3">
             <label for="disponibilidad" class="form-label">Disponibilidad <span class="text-danger">*</span></label>
-            <select name="disponibilidad" class="form-control" id="disponibilidad" {{ $modoLectura ?? false ? 'disabled' : '' }}>
+            <select name="disponibilidad" class="form-control" id="disponibilidad" required disabled>
                 <option value="1" {{ $salon->disponibilidad == 1 ? 'selected' : '' }}>Sí</option>
                 <option value="0" {{ $salon->disponibilidad == 0 ? 'selected' : '' }}>No</option>
             </select>
         </div>
-        
 
         <button type="button" class="btn btn-outline-success" id="busca" style="display:none;" onclick="mostrarConfirmacion()">Guardar</button>
         <button type="button" class="btn btn-outline-primary" onclick="activarInputs()" id="edit">Modificar</button>
         <a href="{{ route('salones.index') }}" class="btn btn-outline-warning">Regresar</a>
-
     </form>
 
     <!-- Modal de confirmación -->
@@ -119,6 +124,13 @@
         const modal = new bootstrap.Modal(document.getElementById('confirmacionModal'));
         modal.show();
     }
+
+    // Validar solo números enteros y un máximo de 3 dígitos en el campo Capacidad
+    const capacidadInput = document.getElementById('capacidad');
+    capacidadInput.addEventListener('input', function (e) {
+        let value = e.target.value;
+        e.target.value = value.replace(/[^0-9]/g, '').substring(0, 3);
+    });
 
 </script>
 

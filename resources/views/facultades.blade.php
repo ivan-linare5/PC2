@@ -66,6 +66,11 @@
                         @method('POST')
 
                         <div class="mb-3">
+                            <label for="clave_facultad" class="form-label">Clave Facultad <span class="text-danger">*</span></label>
+                            <input type="text" name="clave_facultad" class="form-control" id="clave_facultad" placeholder="Clave Facultad" maxlength="11" required>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="nombre_facultad" class="form-label">Nombre de Facultad <span class="text-danger">*</span></label>
                             <input type="text" name="nombre_facultad" class="form-control" id="nombre_facultad" placeholder="Nombre de Facultad" required>
                         </div>
@@ -78,5 +83,17 @@
         </div>
     </div>
 </div>
+
+<!-- Validación de Clave Facultad en el Modal -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const claveFacultadInput = document.getElementById('clave_facultad');
+
+    claveFacultadInput.addEventListener('input', function (e) {
+        let value = e.target.value;
+        e.target.value = value.replace(/[^0-9]/g, '').substring(0, 11);
+    });
+});
+</script>
 
 @endsection

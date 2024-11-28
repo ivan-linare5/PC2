@@ -27,7 +27,7 @@
         @method('GET')
         <div class="mb-4">
             <label for="id_salon" class="form-label">Número de Salón</label>
-            <input type="text" class="form-control" name="id_salon" id="id_salon" placeholder="Número de Salón">
+            <input type="text" class="form-control" name="id_salon" id="id_salon" placeholder="Número de Salón" maxlength="10">
         </div>
         <button type="submit" class="btn btn-primary" id="busca" disabled>Buscar</button>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">Agregar Nuevo</button>
@@ -47,11 +47,11 @@
 
                         <div class="mb-3">
                             <label for="numSalon" class="form-label">Número de Salón <span class="text-danger">*</span></label>
-                            <input type="text" name="id_salon" class="form-control" id="numSalon" placeholder="Número de Salón" required>
+                            <input type="text" name="id_salon" class="form-control" id="numSalon" placeholder="Número de Salón" maxlength="10" required>
                         </div>
                         <div class="mb-3">
                             <label for="capacidad" class="form-label">Capacidad <span class="text-danger">*</span></label>
-                            <input type="number" name="capacidad" class="form-control" id="capacidad" placeholder="Capacidad" min="1" required>
+                            <input type="number" name="capacidad" class="form-control" id="capacidad" placeholder="Capacidad" min="1" max="999" required>
                         </div>
                         <div class="mb-3">
                             <label for="tipo" class="form-label">Tipo de Salón <span class="text-danger">*</span></label>
@@ -96,6 +96,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const buscarButton = document.getElementById("busca"); // Botón "Buscar"
     const salonInput = document.getElementById("id_salon"); // Input del Número de Salón
+    const numSalonInput = document.getElementById("numSalon"); // Input del Número de Salón en el modal
+    const capacidadInput = document.getElementById("capacidad"); // Input de Capacidad en el modal
 
     // Función para comprobar si el campo del formulario tiene contenido
     function checkInput() {
@@ -104,6 +106,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Escuchar el input del Número de Salón
     salonInput.addEventListener("input", checkInput);
+
+    // Validar un máximo de 10 caracteres en Número de Salón
+    salonInput.addEventListener('input', function (e) {
+        let value = e.target.value;
+        e.target.value = value.substring(0, 10);
+    });
+
+    // Validar un máximo de 10 caracteres en el campo Número de Salón del modal
+    numSalonInput.addEventListener('input', function (e) {
+        let value = e.target.value;
+        e.target.value = value.substring(0, 10);
+    });
+
+    // Validar que la capacidad no sea mayor a 3 dígitos en el campo Capacidad del modal
+    capacidadInput.addEventListener('input', function (e) {
+        let value = e.target.value;
+        e.target.value = value.replace(/[^0-9]/g, '').substring(0, 3);
+    });
 
     // Inicialmente, deshabilitar el botón "Buscar"
     buscarButton.disabled = true;
