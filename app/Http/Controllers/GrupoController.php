@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Horario;
 use App\Models\Salon;
+use App\Models\ConfiguracionSemestre;
 use App\Models\Materia;
 use App\Models\Profesor; // Import the Profesor model
 use App\Models\HorarioCupo; // Import if needed
@@ -16,7 +17,7 @@ class GrupoController extends Controller
     public function index()
     {
         // Obtener todos los horarios con las relaciones
-        $horarios = Horario::with(['materia', 'profesor', 'salon', 'horarioCupo'])->get();
+        $horarios = Horario::with(['materia', 'profesor', 'salon', 'horarioCupo', 'configuracion'])->get();
 
         // Obtener todas las materias
         $materias = Materia::all();
@@ -26,8 +27,10 @@ class GrupoController extends Controller
         
         $salones = Salon::all();
 
+        $configuraciones = ConfiguracionSemestre::all(); // Ajusta el modelo y consulta según tu estructura
+
         // Pasar tanto los horarios como las materias y profesores a la vista
-        return view('grupos', compact('horarios', 'materias', 'profesores', 'salones'));
+        return view('grupos', compact('horarios', 'materias', 'profesores', 'salones', 'configuraciones'));
     }
 
     public function update(Request $request)

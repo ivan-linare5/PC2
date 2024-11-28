@@ -4,15 +4,61 @@
 <div class="container mt-2" id="caja">
     <h2 class="text-center">CATÁLOGO DE GRUPOS</h2><br><br>
     
-    <div class="mb-3">
-        <label for="courseSelect" class="form-label">Seleccionar una materia</label>
-        <select class="form-select" id="courseSelect">
-            <option value="">-- Selecciona una materia --</option>
-            @foreach($materias as $materia)
-                <option value="{{ $materia->clave_materia }}">{{ $materia->clave_materia }} - {{ $materia->nombre_materia }}</option>
-            @endforeach
-        </select>
+    <div class="container">
+    <!-- Fila de filtros -->
+    <div class="row g-3 align-items-center mb-3">
+        <!-- Selector de Ciclo -->
+        <div class="col-12 col-md-3">
+            <label for="semestre" class="form-label">Ciclo</label>
+            <select name="semestre" class="form-select" id="semestre" aria-label="Selecciona un ciclo">
+                <option value="">Selecciona un ciclo</option>
+                @foreach($configuraciones as $configuracion)
+                    <option value="{{ $configuracion->ciclo_escolar }}">
+                        {{ $configuracion->ciclo_escolar }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Selector de Semestre -->
+        <div class="col-12 col-md-3">
+            <label for="tipo" class="form-label">Semestre</label>
+            <select name="tipo" class="form-select" id="tipo" aria-label="Selecciona un semestre">
+                <option value="">Selecciona un semestre</option>
+                @foreach($configuraciones as $configuracion)
+                    <option value="{{ $configuracion->ciclo_escolar }}">
+                        {{ $configuracion->tipo_semestre }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Selector de Materia -->
+        <div class="col-12 col-md-3">
+            <label for="courseSelect" class="form-label">Materia</label>
+            <select class="form-select" id="courseSelect">
+                <option value="">Selecciona una materia</option>
+                @foreach($materias as $materia)
+                    <option value="{{ $materia->clave_materia }}">
+                        {{ $materia->clave_materia }} - {{ $materia->nombre_materia }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Campo de Texto -->
+        <div class="col-12 col-md-3">
+            <label for="RPE_Profesor" class="form-label">RPE del Profesor</label>
+            <input type="text" name="RPE_Profesor" class="form-control" id="RPE_Profesor" placeholder="Ingrese el RPE del profesor">
+        </div>
     </div>
+
+    <!-- Botón de búsqueda -->
+    <div class="d-flex justify-content-end mt-3">
+        <button type="button" id="buscarBtn" class="btn btn-primary">Buscar</button>
+    </div>
+</div>
+
     
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -231,18 +277,50 @@
 
 <script>
     // Filtrado por materia
-    document.getElementById('courseSelect').addEventListener('change', function() {
-        const selectedValue = this.value;
-        const rows = document.querySelectorAll('#grupos-table-body tr');
-        
-        rows.forEach(function(row) {
-            if (selectedValue === "" || row.getAttribute('data-materia') === selectedValue) {
-                row.style.display = ''; // Mostrar fila
-            } else {
-                row.style.display = 'none'; // Ocultar fila
-            }
-        });
+   // Obtener referencias a los filtros
+const cicloSelect = document.getElementById('semestre');
+const semestreSelect = document.getElementById('tipo');
+const materiaSelect = document.getElementById('courseSelect');
+const rpeInput = document.getElementById('RPE_Profesor');
+
+// Función para filtrar las filas
+function filtrarTabla() {
+    const cicloValue = cicloSelect.value.toLowerCase();
+    const semestreValue = semestreSelect.value.toLowerCase();
+    const materiaValue = materiaSelect.value.toLowerCase();
+    const rpeValue = rpeInput.value.toLowerCase();
+
+    // Seleccionar todas las filas de la tabla
+    const rows = document.querySelectorAll('#grupos-table-body tr');
+
+    rows.forEach(function(row) {
+        // Obtener los atributos de la fila
+        const cicloData = row.getAttribute('data-ciclo')?.toLowerCase();
+        const semestreData = row.getAttribute('data-semestre')?.toLowerCase();
+        const materiaData = row.getAttribute('data-materia')?.toLowerCase();
+        const rpeData = row.getAttribute('data-rpe')?.toLowerCase();
+
+        // Verificar si la fila coincide con los filtros
+        const cicloMatch = !cicloValue || cicloData === cicloValue;
+        const semestreMatch = !semestreValue || semestreData === semestreValue;
+        const materiaMatch = !materiaValue || materiaData === materiaValue;
+        const rpeMatch = !rpeValue || rpeData.includes(rpeValue);
+
+        // Mostrar u ocultar la fila
+        if (cicloMatch && semestreMatch && materiaMatch && rpeMatch) {
+            row.style.display = ''; // Mostrar fila
+        } else {
+            row.style.display = 'none'; // Ocultar fila
+        }
     });
+}
+
+// Asignar eventos de cambio y entrada a los filtros
+cicloSelect.addEventListener('change', filtrarTabla);
+semestreSelect.addEventListener('change', filtrarTabla);
+materiaSelect.addEventListener('change', filtrarTabla);
+rpeInput.addEventListener('input', filtrarTabla);
+
 
     // Asignar datos al modal al hacer clic en "Editar"
     document.querySelectorAll('.btn-success').forEach(button => {
