@@ -46,17 +46,7 @@
             </select>
         </div>
 
-        <!-- Campo de Texto -->
-        <div class="col-12 col-md-3">
-            <label for="RPE_Profesor" class="form-label">RPE del Profesor</label>
-            <input type="text" name="RPE_Profesor" class="form-control" id="RPE_Profesor" placeholder="Ingrese el RPE del profesor">
-        </div>
-    </div>
-
-    <!-- Botón de búsqueda -->
-    <div class="d-flex justify-content-end mt-3">
-        <button type="button" id="buscarBtn" class="btn btn-primary">Buscar</button>
-    </div>
+       
 </div>
 
     
@@ -237,9 +227,16 @@
 
                     <!-- Configuración Semestre (Manual Input) -->
                     <div class="mb-3">
-                        <label for="ConfiguracionSemestre" class="form-label">Configuración Semestre</label>
-                        <input type="number" class="form-control" id="ConfiguracionSemestre" name="id_configuracionsemestre" required>
-                    </div>
+    <label for="ConfiguracionSemestre" class="form-label">Configuración Semestre</label>
+    <select class="form-select" id="ConfiguracionSemestre" name="id_configuracionsemestre" required>
+        <option value="" disabled selected>-- Selecciona una configuración --</option>
+        @foreach($configuraciones as $configuracion)
+            <option value="{{ $configuracion->id_configuracionsemestre }}">
+                {{ $configuracion->ciclo_escolar }} - {{ $configuracion->tipo_semestre }}
+            </option>
+        @endforeach
+    </select>
+</div>
 
                     <!-- Grupo -->
                     <div class="mb-3">
@@ -283,50 +280,66 @@
 
 
 <script>
-    // Filtrado por materia
-   // Obtener referencias a los filtros
-const cicloSelect = document.getElementById('semestre');
-const semestreSelect = document.getElementById('tipo');
-const materiaSelect = document.getElementById('courseSelect');
-const rpeInput = document.getElementById('RPE_Profesor');
 
-// Función para filtrar las filas
-function filtrarTabla() {
-    const cicloValue = cicloSelect.value.toLowerCase();
-    const semestreValue = semestreSelect.value.toLowerCase();
-    const materiaValue = materiaSelect.value.toLowerCase();
-    const rpeValue = rpeInput.value.toLowerCase();
+document.addEventListener('DOMContentLoaded', () => {
+        // Obtener todos los campos de hora
+        const dias = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab'];
 
-    // Seleccionar todas las filas de la tabla
-    const rows = document.querySelectorAll('#grupos-table-body tr');
+        // Agregar un listener para cada campo de hora
+        dias.forEach(dia => {
+            const inicioField = document.getElementById(`${dia}Ini`);
+            const finField = document.getElementById(`${dia}Fin`);
 
-    rows.forEach(function(row) {
-        // Obtener los atributos de la fila
-        const cicloData = row.getAttribute('data-ciclo')?.toLowerCase();
-        const semestreData = row.getAttribute('data-semestre')?.toLowerCase();
-        const materiaData = row.getAttribute('data-materia')?.toLowerCase();
-        const rpeData = row.getAttribute('data-rpe')?.toLowerCase();
+            const validateTime = () => {
+                const inicio = parseInt(inicioField.value) || 0;
+                const fin = parseInt(finField.value) || 0;
 
-        // Verificar si la fila coincide con los filtros
-        const cicloMatch = !cicloValue || cicloData === cicloValue;
-        const semestreMatch = !semestreValue || semestreData === semestreValue;
-        const materiaMatch = !materiaValue || materiaData === materiaValue;
-        const rpeMatch = !rpeValue || rpeData.includes(rpeValue);
+                // Validar que fin sea mayor que inicio
+                if (fin <= inicio) {
+                    finField.setCustomValidity('La hora de fin debe ser mayor que la hora de inicio.');
+                } else {
+                    finField.setCustomValidity('');
+                }
+            };
 
-        // Mostrar u ocultar la fila
-        if (cicloMatch && semestreMatch && materiaMatch && rpeMatch) {
-            row.style.display = ''; // Mostrar fila
-        } else {
-            row.style.display = 'none'; // Ocultar fila
-        }
+            // Escuchar cambios en los campos
+            inicioField.addEventListener('input', validateTime);
+            finField.addEventListener('input', validateTime);
+        });
     });
-}
+// Función para filtrar la tabla
+function filterTable() {
+        const ciclo = document.getElementById('semestre').value.toLowerCase();
+        const semestre = document.getElementById('tipo').value.toLowerCase();
+        const materia = document.getElementById('courseSelect').value.toLowerCase();
 
-// Asignar eventos de cambio y entrada a los filtros
-cicloSelect.addEventListener('change', filtrarTabla);
-semestreSelect.addEventListener('change', filtrarTabla);
-materiaSelect.addEventListener('change', filtrarTabla);
-rpeInput.addEventListener('input', filtrarTabla);
+        // Obtener todas las filas de la tabla
+        const rows = document.querySelectorAll('#grupos-table-body tr');
+
+        rows.forEach(row => {
+            // Obtener los valores de cada fila
+            const rowCiclo = row.getAttribute('data-ciclo')?.toLowerCase() || '';
+            const rowSemestre = row.getAttribute('data-ciclo')?.toLowerCase() || '';
+            const rowMateria = row.getAttribute('data-materia')?.toLowerCase() || '';
+
+            // Verificar si la fila cumple con los filtros
+            const matchesCiclo = !ciclo || rowCiclo.includes(ciclo);
+            const matchesSemestre = !semestre || rowSemestre.includes(semestre);
+            const matchesMateria = !materia || rowMateria.includes(materia);
+
+            // Mostrar u ocultar la fila según los filtros
+            if (matchesCiclo && matchesSemestre && matchesMateria) {
+                row.style.display = ''; // Mostrar
+            } else {
+                row.style.display = 'none'; // Ocultar
+            }
+        });
+    }
+
+    // Agregar eventos para los selectores
+    document.getElementById('semestre').addEventListener('change', filterTable);
+    document.getElementById('tipo').addEventListener('change', filterTable);
+    document.getElementById('courseSelect').addEventListener('change', filterTable);
 
 
     // Asignar datos al modal al hacer clic en "Editar"
