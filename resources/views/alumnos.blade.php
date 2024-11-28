@@ -38,11 +38,11 @@
             <input type="text" class="form-control" name="apellido_materno" id="input4" placeholder="APELLIDO MATERNO">
         </div>
         <button type="submit" class="btn btn-primary" id="busca" disabled>Buscar</button>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">Agregar Nuevo</button>
+        <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">Agregar Nuevo</button>-->
     </form>
     <!-- Botones para nuevos formularios -->
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNuevosAlumnos">Registrar Nuevos Alumnos</button>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalConsultarAlumno">Consultar Alumno</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalConsultarAlumno">Registrar Alumno</button>
 
     <!-- Modal para Registrar Nuevos Alumnos -->
     <div class="modal fade" id="modalNuevosAlumnos" tabindex="-1" aria-labelledby="modalNuevosAlumnosLabel" aria-hidden="true">
@@ -56,11 +56,22 @@
                         @csrf
                         <div class="mb-3">
                             <label for="ciclo" class="form-label">Ciclo Escolar</label>
-                            <input type="text" name="ciclo" class="form-control" placeholder="Ciclo Escolar (e.g., 2024-2025)" required>
+                            <select id="ciclo" name="ciclo" class="form-control" required>
+                                <option value="" disabled selected>Selecciona un ciclo escolar</option>
+                                @foreach ($configuracion_semestre as $config)
+                                    <option value="{{ $config->ciclo_escolar }}">{{ $config->ciclo_escolar }}</option>
+                                @endforeach
+                            </select>
                         </div>
+                        
                         <div class="mb-3">
                             <label for="semestre" class="form-label">Semestre</label>
-                            <input type="text" name="semestre" class="form-control" placeholder="Semestre (e.g., S1)" required>
+                            <select id="semestre" name="semestre" class="form-control" required>
+                                <option value="" disabled selected>Selecciona un semestre</option>
+                                @foreach ($configuracion_semestre as $config)
+                                    <option value="{{ $config->tipo_semestre }}">{{ $config->tipo_semestre }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-success">Registrar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
@@ -83,6 +94,25 @@
                         <div class="mb-3">
                             <label for="clave_unica" class="form-label">Clave Única</label>
                             <input type="number" name="clave_unica" class="form-control" placeholder="Clave Única del Alumno" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ciclo" class="form-label">Ciclo Escolar</label>
+                            <select id="ciclo" name="ciclo" class="form-control" required>
+                                <option value="" disabled selected>Selecciona un ciclo escolar</option>
+                                @foreach ($configuracion_semestre as $config)
+                                    <option value="{{ $config->ciclo_escolar }}">{{ $config->ciclo_escolar }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="semestre" class="form-label">Semestre</label>
+                            <select id="semestre" name="semestre" class="form-control" required>
+                                <option value="" disabled selected>Selecciona un semestre</option>
+                                @foreach ($configuracion_semestre as $config)
+                                    <option value="{{ $config->tipo_semestre }}">{{ $config->tipo_semestre }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-success">Consultar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>

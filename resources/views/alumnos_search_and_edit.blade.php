@@ -31,38 +31,38 @@
 
     <div class="mb-3">
         <label for="nombre_alumno" class="form-label">Nombre <span class="text-danger">*</span></label>
-        <input type="text" name="nombre_alumno" class="form-control" id="nombre_alumno" value="{{ $alumno->nombre_alumno }}" required disabled>
+        <input type="text" name="nombre_alumno" class="form-control" id="nombre_alumno" value="{{ $alumno->nombre_alumno }}" required readonly>
     </div>
 
     <div class="mb-3">
         <label for="primer_apellido" class="form-label">Apellido Paterno <span class="text-danger">*</span></label>
-        <input type="text" name="primer_apellido" class="form-control" id="primer_apellido" value="{{ $alumno->primer_apellido }}" required disabled>
+        <input type="text" name="primer_apellido" class="form-control" id="primer_apellido" value="{{ $alumno->primer_apellido }}" required readonly>
     </div>
 
     <div class="mb-3">
         <label for="segundo_apellido" class="form-label">Apellido Materno</label>
-        <input type="text" name="segundo_apellido" class="form-control" id="segundo_apellido" value="{{ $alumno->segundo_apellido }}" disabled>
+        <input type="text" name="segundo_apellido" class="form-control" id="segundo_apellido" value="{{ $alumno->segundo_apellido }}" readonly>
     </div>
 
     <div class="mb-3">
         <label for="correo_institucional" class="form-label">Correo Institucional <span class="text-danger">*</span></label>
-        <input type="email" name="correo_institucional" class="form-control" id="correo_institucional" value="{{ $alumno->correo_institucional }}" required disabled>
+        <input type="email" name="correo_institucional" class="form-control" id="correo_institucional" value="{{ $alumno->correo_institucional }}" required readonly>
     </div>
 
     <div class="mb-3">
         <label for="clave_carrera" class="form-label">Clave Carrera <span class="text-danger">*</span></label>
-        <input type="text" name="clave_carrera" class="form-control" id="clave_carrera" value="{{ $alumno->clave_carrera }}" required disabled>
+        <input type="text" name="clave_carrera" class="form-control" id="clave_carrera" value="{{ $alumno->clave_carrera }}" required readonly>
     </div>
 
     <div class="mb-3">
-    <label for="fecha_ingreso" class="form-label">Fecha de Ingreso <span class="text-danger">*</span></label>
-    <input type="date" name="fecha_ingreso" class="form-control" id="fecha_ingreso" value="{{ $alumno->fecha_ingreso }}" required>
+    <label for="fecha_ingreso" class="form-label">Generacion <span class="text-danger">*</span></label>
+    <input type="number" name="fecha_ingreso" class="form-control" id="fecha_ingreso" value="{{ $alumno->generacion }}" required readonly>
 </div>
 
-
+    
     <!-- Inputs para los teléfonos de emergencia -->
     <div id="telefonos-container">
-    <label class="form-label text-center d-block mb-3">TELÉFONOS</label>
+    <!--<label class="form-label text-center d-block mb-3">TELÉFONOS</label>-->
         @foreach ($telefonos as $telefono)
             <div class="mb-3 d-flex align-items-center">
                 <div class="flex-grow-1 me-2">
@@ -85,7 +85,7 @@
     
 
     <button type="button" class="btn btn-outline-success" id="busca" style="display:none;" onclick="mostrarConfirmacion()">Guardar</button>
-    <button type="button" class="btn btn-outline-primary" onclick="activarInputs()" id="edit">Modificar</button>
+    <!--<button type="button" class="btn btn-outline-primary" onclick="activarInputs()" id="edit">Modificar</button>-->
     <a href="{{ route('alumnos.index') }}" class="btn btn-outline-warning">Regresar</a>
 
     </form>
