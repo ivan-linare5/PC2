@@ -148,6 +148,80 @@ class AlumnoController extends Controller
     }
 }
 
+// **Nuevo: Método para registrar nuevos alumnos**
+public function registrarNuevosAlumnos(Request $request)
+{
+    $endpoint = 'https://servicios.ing.uaslp.mx/ws_dfm/RecibirNuevosAlumnos.php';
+    $payload = json_encode([
+        'key' => '1',
+        'ciclo' => $request->input('ciclo'),
+        'semestre' => $request->input('semestre'),
+    ]);
+
+    $response = $this->sendPostRequest($endpoint, $payload);
+
+    $data = json_decode($response, true);
+
+    if (isset($data['correcto']) && $data['correcto'] == true) {
+        session()->flash('success', 'Nuevos alumnos registrados correctamente.');
+    } else {
+        session()->flash('error', 'Error al registrar nuevos alumnos.');
+    }
+
+    return redirect()->route('alumnos.index');
+}
+
+// **Nuevo: Método para consultar un alumno**
+public function consultarAlumno(Request $request)
+{
+    $endpoint = 'https://servicios.ing.uaslp.mx/ws_dfm/RecibirAlumno.php';
+    $payload = json_encode([
+        'key' => '1',
+        'clave_unica' => $request->input('clave_unica'),
+    ]);
+
+    $response = $this->sendPostRequest($endpoint, $payload);
+
+    $data = json_decode($response, true);
+
+    if (isset($data['correcto']) && $data['correcto'] == true) {
+        $alumno = $data['datos'] ?? null;
+        if ($alumno) {
+            return view('alumno_consultado', compact('alumno'));
+        } else {
+            session()->flash('error', 'No se encontraron datos para el alumno solicitado.');
+        }
+    } else {
+        session()->flash('error', 'Error al consultar datos del alumno.');
+    }
+
+    return redirect()->route('alumnos.index');
+}
+
+private function sendPostRequest($endpoint, $payload)
+{
+    $ch = curl_init($endpoint);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($payload)
+    ]);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+    $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        $response = 'Error: ' . curl_error($ch);
+    }
+
+    curl_close($ch);
+
+    return $response;
+}
+
 
         
 

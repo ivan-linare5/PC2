@@ -45,6 +45,8 @@ Route::post('/alumno/guardar', [AlumnoController::class, 'guardar'])->name('alum
 Route::get('/alumno/buscar', [AlumnoController::class, 'buscar'])->name('alumno.buscar');
 Route::put('/alumno/update', [AlumnoController::class, 'update'])->name('alumno.update');
 Route::get('/alumno/search/{clave_Unica}', [AlumnoController::class, 'search'])->name('alumno.search');
+Route::post('/alumno/registrar-nuevos', [AlumnoController::class, 'registrarNuevosAlumnos'])->name('alumno.registrarNuevos');
+Route::post('/alumno/consultar', [AlumnoController::class, 'consultarAlumno'])->name('alumno.consultar');
 
 
 //GRUPOS

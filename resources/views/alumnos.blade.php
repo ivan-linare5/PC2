@@ -40,6 +40,58 @@
         <button type="submit" class="btn btn-primary" id="busca" disabled>Buscar</button>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">Agregar Nuevo</button>
     </form>
+    <!-- Botones para nuevos formularios -->
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNuevosAlumnos">Registrar Nuevos Alumnos</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalConsultarAlumno">Consultar Alumno</button>
+
+    <!-- Modal para Registrar Nuevos Alumnos -->
+    <div class="modal fade" id="modalNuevosAlumnos" tabindex="-1" aria-labelledby="modalNuevosAlumnosLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNuevosAlumnosLabel">Registrar Nuevos Alumnos</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('alumno.registrarNuevos') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="ciclo" class="form-label">Ciclo Escolar</label>
+                            <input type="text" name="ciclo" class="form-control" placeholder="Ciclo Escolar (e.g., 2024-2025)" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="semestre" class="form-label">Semestre</label>
+                            <input type="text" name="semestre" class="form-control" placeholder="Semestre (e.g., S1)" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Registrar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Consultar Alumno -->
+    <div class="modal fade" id="modalConsultarAlumno" tabindex="-1" aria-labelledby="modalConsultarAlumnoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalConsultarAlumnoLabel">Consultar Alumno</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('alumno.consultar') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="clave_unica" class="form-label">Clave Única</label>
+                            <input type="number" name="clave_unica" class="form-control" placeholder="Clave Única del Alumno" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Consultar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- Modal -->
     <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="modalFormLabel" aria-hidden="true">
