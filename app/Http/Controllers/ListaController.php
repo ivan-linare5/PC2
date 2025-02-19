@@ -151,10 +151,10 @@ class ListaController extends Controller
         $materia = $horario->materia; 
         $sheet->setCellValue('W' . $row, mb_strtoupper($materia->nombre_materia));
 
-        // Encabezado para Materia
+        // Encabezado para Ciclo
         $row = 8; 
         $configuracion = $horario->configuracion; 
-        $sheet->setCellValue('W' . $row, $configuracion->ciclo_escolar);
+        $sheet->setCellValue('H' . $row, $configuracion->ciclo_escolar);
 
        // Encabezado para Tipo
         $row = 8;
