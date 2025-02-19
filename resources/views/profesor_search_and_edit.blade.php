@@ -55,12 +55,12 @@
     </div>
 
     <div class="mb-3">
-        <label for="horas_definitivas" class="form-label">Horas definitivas totales</label>
+        <label for="horas_definitivas" class="form-label">Horas Definitivas Totales</label>
         <input type="number" name="horas_definitivas" class="form-control" id="horas_definitivas" value="{{ $profesor->horas_definitivas }}" min='0' disabled>
     </div>
 
     <div class="mb-3">
-        <label for="telefono_personal" class="form-label">Telefono Personal <span class="text-danger">*</span></label>
+        <label for="telefono_personal" class="form-label">Teléfono Personal <span class="text-danger">*</span></label>
         <input type="text" name="telefono_personal" class="form-control" id="telefono_personal" value="{{ $profesor->telefono_personal }}" minlength="10" maxlength="10" pattern="\d{10}" title="Debe tener exactamente 10 dígitos"required disabled>
     </div>
 
@@ -70,7 +70,7 @@
         @foreach ($telefonos as $telefono)
             <div class="mb-3 d-flex align-items-center">
                 <div class="flex-grow-1 me-2">
-                    <label for="telefono_numero_{{ $loop->index }}" class="form-label text-center">Número Teléfonico</label>
+                    <label for="telefono_numero_{{ $loop->index }}" class="form-label text-center">Número Telefónico/label>
                     <input type="text" name="telefonos[{{ $loop->index }}][numero]" class="form-control" id="telefono_numero_{{ $loop->index }}" value="{{ $telefono->numero }}" disabled minlength="10" maxlength="10" pattern="\d{10}" title="Debe tener exactamente 10 dígitos">
                 </div>
 

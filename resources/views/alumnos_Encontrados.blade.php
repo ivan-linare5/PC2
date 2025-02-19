@@ -7,7 +7,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Clave Unica</th>
+                    <th>Clave Única</th>
                     <th>Nombre</th>
                     <th>Apellido Paterno</th>
                     <th>Apellido Materno</th>

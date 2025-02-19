@@ -4,7 +4,7 @@
 
 <!-- contenido a cargar -->
 <div class="container mt-2" id="caja">
-    <h2 class="text-center">CATALOGO ALUMNOS</h2>
+    <h2 class="text-center">CATÁLOGO DE ALUMNOS</h2>
 
     <!-- Mensajes de éxito o error -->
     @if (session('success'))

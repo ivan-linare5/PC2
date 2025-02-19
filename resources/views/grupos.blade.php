@@ -5,6 +5,7 @@
     <h2 class="text-center">CATÁLOGO DE GRUPOS</h2><br><br>
     
     <div class="container">
+        
     <!-- Fila de filtros -->
     <div class="row g-3 align-items-center mb-3">
         <!-- Selector de Ciclo -->
@@ -44,6 +45,10 @@
                     </option>
                 @endforeach
             </select>
+        </div>
+
+        <div class="d-flex gap-3 mt-2">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Agregar Nuevo</button>
         </div>
 
        
@@ -112,9 +117,6 @@
         </table>
     </div>
 
-    <div class="d-flex gap-4 mt-3">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Agregar Nuevo</button>
-    </div>
 </div>
 
 <!-- Edit Modal -->

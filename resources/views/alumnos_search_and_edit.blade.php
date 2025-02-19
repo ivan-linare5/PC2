@@ -25,7 +25,7 @@
     @method('PUT') 
     
     <div class="mb-3">
-        <label for="clave_Unica" class="form-label">Clave Unica <span class="text-danger">*</span></label>
+        <label for="clave_Unica" class="form-label">Clave Única <span class="text-danger">*</span></label>
         <input type="text" name="clave_Unica" class="form-control" id="clave_Unica" value="{{ $alumno->clave_Unica}}" required readonly>
     </div>
 
@@ -55,7 +55,7 @@
     </div>
 
     <div class="mb-3">
-    <label for="fecha_ingreso" class="form-label">Generacion <span class="text-danger">*</span></label>
+    <label for="fecha_ingreso" class="form-label">Generación <span class="text-danger">*</span></label>
     <input type="number" name="fecha_ingreso" class="form-control" id="fecha_ingreso" value="{{ $alumno->generacion }}" required readonly>
 </div>
 
@@ -66,7 +66,7 @@
         @foreach ($telefonos as $telefono)
             <div class="mb-3 d-flex align-items-center">
                 <div class="flex-grow-1 me-2">
-                    <label for="telefono_numero_{{ $loop->index }}" class="form-label text-center">Número Teléfonico</label>
+                    <label for="telefono_numero_{{ $loop->index }}" class="form-label text-center">Número Telefónico</label>
                     <input type="text" name="telefonos[{{ $loop->index }}][numero]" class="form-control" id="telefono_numero_{{ $loop->index }}" value="{{ $telefono->numero }}" disabled minlength="10" maxlength="10" pattern="\d{10}" title="Debe tener exactamente 10 dígitos">
                 </div>
 

@@ -3,7 +3,7 @@
 @section('contenido')
 <!-- contenido a cargar -->
 <div class="container mt-2" id="caja">
-    <h2 class="text-center">CATALOGO PROFESORES</h2>
+    <h2 class="text-center">CATÁLOGO DE PROFESORES</h2>
 
     <!-- Mensajes de éxito o error -->
     @if (session('success'))
@@ -81,13 +81,13 @@
                         <input type="number" name="horas_definitivas" class="form-control" id="horas_definitivas" placeholder="Horas definitivas" min='0'>
                     </div>
                     <div class="mb-3">
-                        <label for="telefono_personal" class="form-label">Telefono Personal <span class="text-danger">*</span></label>
+                        <label for="telefono_personal" class="form-label">Teléfono personal <span class="text-danger">*</span></label>
                         <input type="text" name="telefono_personal" class="form-control" id="telefono_personal" placeholder="Telefono personal" minlength="10" maxlength="10" pattern="\d{10}" title="Debe tener exactamente 10 dígitos" required>
                     </div>
 
                     <!-- Teléfonos de Emergencia -->
                     <div class="mb-3">
-                        <label for="telefonosEmergencia" class="form-label">Teléfonos de Emergencia <span class="text-danger">*</span></label>
+                        <label for="telefonosEmergencia" class="form-label">Teléfonos de emergencia <span class="text-danger">*</span></label>
                         <div id="telefonos-container">
                             <div class="input-group mb-3">
                                 <input type="text" name="telefonos[0][numero]" class="form-control" placeholder="Teléfono de Emergencia" minlength="10" maxlength="10" pattern="\d{10}" title="Debe tener exactamente 10 dígitos" required>

@@ -2,7 +2,7 @@
 
 @section('contenido')
 <form id="search-form" class="d-flex" action="{{ route('buscar.horario') }}" method="GET">
-    <input type="text" id="query" name="query" placeholder="Ejemplo: 48 18" class="form-control me-2" required>
+    <input type="text" id="query" name="query" placeholder="Ejemplo: Clave Materia Grupo (48 18)" class="form-control me-2" required>
     <button type="submit" class="btn btn-primary">Buscar</button>
 </form>
 

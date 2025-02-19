@@ -156,6 +156,7 @@ class ProfesorController extends Controller
                 'segundo_apellido' => $request->segundo_apellido,
                 'correo_institucional' => $request->correo_institucional,
                 'grado_maximo' => $request->grado_maximo,
+                'horas_definitivas' => $request->horas_definitivas,
                 'telefono_personal' => $request->telefono_personal,
                 'Activo' => $request->activo // Asegúrate de que 'Activo' es un campo de la base de datos
             ]);

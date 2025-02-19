@@ -80,7 +80,7 @@
                     <a class="nav-link" href="{{ route('grupos.index') }}">Horario</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('inscripcion.index') }}">Inscripcion</a>                    
+                    <a class="nav-link" href="{{ route('inscripcion.index') }}">Inscripción</a>                    
                 </li>
             </ul>
             <!-- Menú para cerrar sesión -->

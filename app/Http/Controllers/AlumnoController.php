@@ -139,13 +139,13 @@ class AlumnoController extends Controller
                 'fecha_ingreso' => $request->fecha_ingreso,
             ]);
 
-            \Log::info('Alumno después de actualizar:', $alumno->toArray());
+            //\Log::info('Alumno después de actualizar:', $alumno->toArray());
 
             session()->flash('success', 'Datos del alumno actualizados exitosamente.');
             return redirect()->route('alumnos.index');
 
         } catch (\Exception $e) {
-            \Log::error('Error al actualizar alumno:', ['error' => $e->getMessage()]);
+            //\Log::error('Error al actualizar alumno:', ['error' => $e->getMessage()]);
             session()->flash('error', 'Error al actualizar los datos del alumno. Detalles: ' . $e->getMessage());
             return redirect()->back();
         }
